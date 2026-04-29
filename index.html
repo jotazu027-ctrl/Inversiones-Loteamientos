@@ -5,10 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inversiones Loteamientos</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Inversiones">
 <meta name="theme-color" content="#1a6644">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.svg">
+<style>
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+</style>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif}
 body{background:#f0f0f0;padding:16px;max-width:580px;margin:0 auto}
@@ -247,8 +251,24 @@ function dashV() {
   }
 
   var h = '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">';
+  h += '<div style="display:flex;align-items:center;gap:10px">';
+  h += '<svg width="44" height="44" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">';
+  h += '<rect width="400" height="400" fill="#ffffff"/>';
+  h += '<polygon points="200,55 55,190 345,190" fill="#ffffff" stroke="#1a6644" stroke-width="16" stroke-linejoin="round"/>';
+  h += '<rect x="110" y="152" width="28" height="30" rx="3" fill="#1a6644" opacity="0.35"/>';
+  h += '<rect x="145" y="132" width="28" height="50" rx="3" fill="#1a6644" opacity="0.6"/>';
+  h += '<rect x="180" y="108" width="28" height="74" rx="3" fill="#1a6644"/>';
+  h += '<rect x="218" y="132" width="28" height="50" rx="3" fill="#1a6644" opacity="0.6"/>';
+  h += '<rect x="253" y="152" width="28" height="30" rx="3" fill="#1a6644" opacity="0.35"/>';
+  h += '<line x1="200" y1="55" x2="200" y2="22" stroke="#1a6644" stroke-width="12" stroke-linecap="round"/>';
+  h += '<polyline points="184,38 200,20 216,38" fill="none" stroke="#1a6644" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>';
+  h += '<rect x="72" y="190" width="256" height="160" rx="4" fill="none" stroke="#1a6644" stroke-width="16"/>';
+  h += '<text x="200" y="232" text-anchor="middle" font-family="system-ui" font-size="36" font-weight="700" fill="#1a6644" letter-spacing="2">INVERSIONES</text>';
+  h += '<text x="200" y="258" text-anchor="middle" font-family="system-ui" font-size="22" fill="#1a6644" opacity="0.6" letter-spacing="3">LOTEAMIENTOS</text>';
+  h += '<rect x="158" y="268" width="84" height="82" rx="3" fill="#1a6644" opacity="0.12"/>';
+  h += '</svg>';
   h += '<div><div style="font-size:17px;font-weight:700;color:#111">Portfolio de inversiones</div>';
-  h += '<div style="font-size:12px;color:#555;font-weight:500">'+projects.length+' proyectos</div></div>';
+  h += '<div style="font-size:12px;color:#555;font-weight:500">'+projects.length+' proyectos</div></div></div>';
   h += '<button onclick="showAddP=true;render()">+ Nuevo</button></div>';
   h += '<div class="g2">'+met("Total invertido",gs(tg),"red")+met("Total recuperado",gs(ti),"grn")+'</div>';
   h += '<div class="g2">'+met("Saldo global",gs(ts),ts>=0?"grn":"red")+met("ROI global",pp(tr),tr>=0?"grn":"red")+'</div>';

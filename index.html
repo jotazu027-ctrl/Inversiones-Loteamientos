@@ -92,7 +92,18 @@ var np={name:"",desc:""};
 var nm={tipo:"gasto",concepto:"",monto:"",fecha:""};
 nm.fecha = new Date().toISOString().slice(0,10);
 
-function uid(){ return "x"+Date.now()+Math.floor(Math.random()*9999); }
+var PROY_MAP = {
+  "ybycui": PROY.ybycui,
+  "sapucai": PROY.sapucai,
+  "Ybycui": PROY.ybycui,
+  "Sapucai": PROY.sapucai,
+  "YB": PROY.ybycui,
+  "SA": PROY.sapucai
+};
+
+function getProy(p){
+  return PROY[p.id] || PROY[p.id.toLowerCase()] || PROY_MAP[p.name] || PROY_MAP[p.name.toLowerCase()] || null;
+}
 function gs(n){ return "Gs. "+Math.round(n).toLocaleString("es-PY"); }
 function pp(n){ return (n>=0?"+":"")+n.toFixed(1)+"%"; }
 
@@ -250,7 +261,7 @@ function projV(){
   (p.movimientos||[]).forEach(function(m){ if(m.tipo==="gasto") grp[m.concepto]=(grp[m.concepto]||0)+m.monto; });
   var topG=Object.keys(grp).map(function(k){ return [k,grp[k]]; }).sort(function(a,b){ return b[1]-a[1]; }).slice(0,6);
   var mg=topG.length?topG[0][1]:1;
-  var pr=PROY[pid];
+  var pr=getProy(p);
   var anioActual=new Date().getFullYear();
 
   var hdr='<button style="background:none;border:none;color:#666;font-size:13px;padding:0;margin-bottom:14px;cursor:pointer;font-weight:600" onclick="goBack()">Atras</button>';

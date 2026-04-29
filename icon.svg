@@ -1,14 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-<rect width="200" height="200" fill="#ffffff"/>
-<polygon points="100,25 38,90 162,90" fill="none" stroke="#1a6644" stroke-width="6" stroke-linejoin="round"/>
-<rect x="52" y="90" width="96" height="72" rx="2" fill="none" stroke="#1a6644" stroke-width="6"/>
-<rect x="66" y="103" width="12" height="22" rx="2" fill="#1a6644" opacity="0.4"/>
-<rect x="82" y="95" width="12" height="30" rx="2" fill="#1a6644" opacity="0.65"/>
-<rect x="94" y="86" width="12" height="39" rx="2" fill="#1a6644"/>
-<rect x="110" y="95" width="12" height="30" rx="2" fill="#1a6644" opacity="0.65"/>
-<rect x="126" y="103" width="12" height="22" rx="2" fill="#1a6644" opacity="0.4"/>
-<line x1="100" y1="25" x2="100" y2="10" stroke="#1a6644" stroke-width="5" stroke-linecap="round"/>
-<polyline points="93,18 100,9 107,18" fill="none" stroke="#1a6644" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="100" y="136" text-anchor="middle" font-family="system-ui" font-size="11" font-weight="700" fill="#1a6644" letter-spacing="1">INVERSIONES</text>
-<text x="100" y="149" text-anchor="middle" font-family="system-ui" font-size="8" fill="#1a6644" opacity="0.6" letter-spacing="2">LOTEAMIENTOS</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+<rect width="400" height="400" fill="#ffffff"/>
+<polygon points="200,50 60,185 340,185" fill="#ffffff" stroke="#1a6644" stroke-width="8" stroke-linejoin="round"/>
+<rect x="112" y="148" width="24" height="30" rx="3" fill="#1a6644" opacity="0.4"/>
+<rect x="142" y="130" width="24" height="48" rx="3" fill="#1a6644" opacity="0.65"/>
+<rect x="176" y="108" width="24" height="70" rx="3" fill="#1a6644"/>
+<rect x="210" y="130" width="24" height="48" rx="3" fill="#1a6644" opacity="0.65"/>
+<rect x="244" y="148" width="24" height="30" rx="3" fill="#1a6644" opacity="0.4"/>
+<line x1="200" y1="50" x2="200" y2="20" stroke="#1a6644" stroke-width="7" stroke-linecap="round"/>
+<polyline points="185,34 200,18 215,34" fill="none" stroke="#1a6644" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="80" y="185" width="240" height="150" rx="4" fill="none" stroke="#1a6644" stroke-width="8"/>
+<text x="200" y="222" text-anchor="middle" font-family="system-ui" font-size="22" font-weight="700" fill="#1a6644" letter-spacing="2">INVERSIONES</text>
+<text x="200" y="244" text-anchor="middle" font-family="system-ui" font-size="14" fill="#1a6644" opacity="0.6" letter-spacing="3">LOTEAMIENTOS</text>
+<rect x="162" y="255" width="76" height="80" rx="3" fill="#1a6644" opacity="0.15"/>
 </svg>

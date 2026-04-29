@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -43,365 +44,366 @@ var SURL = "https://script.google.com/macros/s/AKfycbwszlJl1c2wnvUkuGF-m0k9BUWeU
 var CLR = ["#534AB7","#E24B4A","#1D9E75","#BA7517","#185FA5","#888780"];
 
 var PROY = {
-  ybycui: {
-    participacion: 22.5,
-    inversionTotal: 445275000,
-    recaudacionNeta: 3148431300,
-    utilidadNeta: 2703156300,
-    roi: 607.1, tir: 146.5, van: 1509874016, moic: 7.1, payback: "Anio 2",
-    flujo: [
-      {anio:2026,ingresos:223520850,acumulado:-221754150},
-      {anio:2027,ingresos:324990050,acumulado:103235900},
-      {anio:2028,ingresos:324990050,acumulado:428225950},
-      {anio:2029,ingresos:324990050,acumulado:753216000},
-      {anio:2030,ingresos:324990050,acumulado:1078206050},
-      {anio:2031,ingresos:324990050,acumulado:1403196100},
-      {anio:2032,ingresos:324990050,acumulado:1728186150},
-      {anio:2033,ingresos:324990050,acumulado:2053176200},
-      {anio:2034,ingresos:324990050,acumulado:2378166250},
-      {anio:2035,ingresos:324990050,acumulado:2703156300}
-    ]
-  },
-  sapucai: {
-    participacion: 10,
-    inversionTotal: 1045200000,
-    recaudacionNeta: 8979574154,
-    utilidadNeta: 7934374154,
-    roi: 759.1, tir: 101.2, van: 3947957036, moic: 8.6, payback: "Anio 3",
-    flujo: [
-      {anio:2027,ingresos:215820000,acumulado:-598080000},
-      {anio:2028,ingresos:515474667,acumulado:-197005333},
-      {anio:2029,ingresos:834147111,acumulado:520241778},
-      {anio:2030,ingresos:912853333,acumulado:1433095111},
-      {anio:2031,ingresos:912853333,acumulado:2345948444},
-      {anio:2032,ingresos:912853333,acumulado:3258801778},
-      {anio:2033,ingresos:912853333,acumulado:4171655111},
-      {anio:2034,ingresos:912853333,acumulado:5084508444},
-      {anio:2035,ingresos:912853333,acumulado:5997361778},
-      {anio:2036,ingresos:912853333,acumulado:6910215111},
-      {anio:2037,ingresos:627586667,acumulado:7537801778},
-      {anio:2038,ingresos:323302222,acumulado:7861104000}
-    ]
-  }
+ybycui: {
+participacion: 22.5,
+inversionTotal: 445275000,
+recaudacionNeta: 3148431300,
+utilidadNeta: 2703156300,
+roi: 607.1, tir: 146.5, van: 1509874016, moic: 7.1, payback: “Anio 2”,
+flujo: [
+{anio:2026,ingresos:223520850,acumulado:-221754150},
+{anio:2027,ingresos:324990050,acumulado:103235900},
+{anio:2028,ingresos:324990050,acumulado:428225950},
+{anio:2029,ingresos:324990050,acumulado:753216000},
+{anio:2030,ingresos:324990050,acumulado:1078206050},
+{anio:2031,ingresos:324990050,acumulado:1403196100},
+{anio:2032,ingresos:324990050,acumulado:1728186150},
+{anio:2033,ingresos:324990050,acumulado:2053176200},
+{anio:2034,ingresos:324990050,acumulado:2378166250},
+{anio:2035,ingresos:324990050,acumulado:2703156300}
+]
+},
+sapucai: {
+participacion: 10,
+inversionTotal: 1045200000,
+recaudacionNeta: 8979574154,
+utilidadNeta: 7934374154,
+roi: 759.1, tir: 101.2, van: 3947957036, moic: 8.6, payback: “Anio 3”,
+flujo: [
+{anio:2027,ingresos:215820000,acumulado:-598080000},
+{anio:2028,ingresos:515474667,acumulado:-197005333},
+{anio:2029,ingresos:834147111,acumulado:520241778},
+{anio:2030,ingresos:912853333,acumulado:1433095111},
+{anio:2031,ingresos:912853333,acumulado:2345948444},
+{anio:2032,ingresos:912853333,acumulado:3258801778},
+{anio:2033,ingresos:912853333,acumulado:4171655111},
+{anio:2034,ingresos:912853333,acumulado:5084508444},
+{anio:2035,ingresos:912853333,acumulado:5997361778},
+{anio:2036,ingresos:912853333,acumulado:6910215111},
+{anio:2037,ingresos:627586667,acumulado:7537801778},
+{anio:2038,ingresos:323302222,acumulado:7861104000}
+]
+}
 };
 
 var projects = [];
-var view="dash", pid=null, curtab="mov";
+var view=“dash”, pid=null, curtab=“mov”;
 var showAddP=false, showAddM=false, conf=null;
-var np={name:"",desc:""};
-var nm={tipo:"gasto",concepto:"",monto:"",fecha:""};
+var np={name:””,desc:””};
+var nm={tipo:“gasto”,concepto:””,monto:””,fecha:””};
 nm.fecha = new Date().toISOString().slice(0,10);
 
-function uid(){ return "x"+Date.now()+Math.floor(Math.random()*9999); }
-function gs(n){ return "Gs. "+Math.round(n).toLocaleString("es-PY"); }
-function pp(n){ return (n>=0?"+":"")+n.toFixed(1)+"%"; }
+function uid(){ return “x”+Date.now()+Math.floor(Math.random()*9999); }
+function gs(n){ return “Gs. “+Math.round(n).toLocaleString(“es-PY”); }
+function pp(n){ return (n>=0?”+”:””)+n.toFixed(1)+”%”; }
 
 function toast(msg){
-  var el=document.getElementById("toast");
-  el.textContent=msg; el.classList.add("show");
-  setTimeout(function(){ el.classList.remove("show"); },2500);
+var el=document.getElementById(“toast”);
+el.textContent=msg; el.classList.add(“show”);
+setTimeout(function(){ el.classList.remove(“show”); },2500);
 }
 
 function tots(p){
-  var ing=0,gas=0;
-  (p.movimientos||[]).forEach(function(m){ if(m.tipo==="ingreso") ing+=m.monto; else gas+=m.monto; });
-  return {ing:ing,gas:gas,sal:ing-gas,roi:gas>0?(ing-gas)/gas*100:0};
+var ing=0,gas=0;
+(p.movimientos||[]).forEach(function(m){ if(m.tipo===“ingreso”) ing+=m.monto; else gas+=m.monto; });
+return {ing:ing,gas:gas,sal:ing-gas,roi:gas>0?(ing-gas)/gas*100:0};
 }
 
 function bar(pct,color){
-  return '<div class="bar"><div class="bf" style="width:'+Math.min(100,pct)+'%;background:'+color+'"></div></div>';
+return ‘<div class="bar"><div class="bf" style="width:'+Math.min(100,pct)+'%;background:'+color+'"></div></div>’;
 }
 
 function met(l,v,c){
-  return '<div class="metric"><div class="mlbl">'+l+'</div><div class="mval '+(c||"wht")+'">'+v+'</div></div>';
+return ‘<div class="metric"><div class="mlbl">’+l+’</div><div class=“mval ‘+(c||“wht”)+’”>’+v+’</div></div>’;
 }
 
 function loadData(){
-  var s=document.createElement("script");
-  window._cb=function(d){
-    projects=d.projects&&d.projects.length?d.projects:[];
-    if(!projects.length){ seedData(); persist(function(){ render(); }); }
-    else render();
-  };
-  s.src=SURL+"?callback=_cb";
-  s.onerror=function(){ document.getElementById("root").innerHTML='<div style="text-align:center;padding:40px;color:#c00">Error de conexion.</div>'; };
-  document.head.appendChild(s);
+var s=document.createElement(“script”);
+window._cb=function(d){
+projects=d.projects&&d.projects.length?d.projects:[];
+if(!projects.length){ seedData(); persist(function(){ render(); }); }
+else render();
+};
+s.src=SURL+”?callback=_cb”;
+s.onerror=function(){ document.getElementById(“root”).innerHTML=’<div style="text-align:center;padding:40px;color:#c00">Error de conexion.</div>’; };
+document.head.appendChild(s);
 }
 
 function seedData(){
-  projects=[
-    {id:"ybycui",name:"Ybycui",desc:"",movimientos:[
-      {id:"y1",tipo:"gasto",concepto:"Sena compra terreno",monto:100000000,fecha:"2025-04-23"},
-      {id:"y2",tipo:"gasto",concepto:"Adelanto comision vendedor",monto:500000,fecha:"2025-04-23"},
-      {id:"y3",tipo:"gasto",concepto:"Saldo terreno",monto:233333334,fecha:"2025-06-02"},
-      {id:"y4",tipo:"gasto",concepto:"Escribania",monto:3155115,fecha:"2025-06-02"},
-      {id:"y5",tipo:"gasto",concepto:"Comision Sonar",monto:3150000,fecha:"2025-06-02"},
-      {id:"y6",tipo:"gasto",concepto:"Saldo comision vendedor",monto:14500000,fecha:"2025-06-02"},
-      {id:"y7",tipo:"ingreso",concepto:"Cobro alquiler terreno",monto:1100000,fecha:"2025-06-02"},
-      {id:"y8",tipo:"ingreso",concepto:"Cobro diferencia Ricar",monto:733333,fecha:"2025-06-02"},
-      {id:"y9",tipo:"gasto",concepto:"Mades 50pct",monto:1237500,fecha:"2025-09-01"},
-      {id:"y10",tipo:"gasto",concepto:"Aprobacion Ybycui",monto:1687500,fecha:"2025-10-13"},
-      {id:"y11",tipo:"gasto",concepto:"Fraccionamiento terreno",monto:4826250,fecha:"2025-10-17"},
-      {id:"y12",tipo:"gasto",concepto:"Saldo Mades",monto:1237500,fecha:"2025-12-02"},
-      {id:"y13",tipo:"gasto",concepto:"Portico y letras corporeas",monto:5310000,fecha:"2026-01-07"},
-      {id:"y14",tipo:"gasto",concepto:"Honorarios arquitecto",monto:1237500,fecha:"2026-01-12"},
-      {id:"y15",tipo:"gasto",concepto:"Anticipo pileta",monto:4500000,fecha:"2026-01-26"},
-      {id:"y16",tipo:"ingreso",concepto:"Ventas febrero 2026",monto:3297154,fecha:"2026-03-11"},
-      {id:"y17",tipo:"ingreso",concepto:"Ventas marzo 2026",monto:14747645,fecha:"2026-04-13"}
-    ]},
-    {id:"sapucai",name:"Sapucai",desc:"",movimientos:[
-      {id:"s1",tipo:"gasto",concepto:"Sena compra terreno",monto:57150000,fecha:"2026-04-24"},
-      {id:"s2",tipo:"gasto",concepto:"FEE Sonar",monto:6500000,fecha:"2026-04-24"}
-    ]}
-  ];
+projects=[
+{id:“ybycui”,name:“Ybycui”,desc:””,movimientos:[
+{id:“y1”,tipo:“gasto”,concepto:“Sena compra terreno”,monto:100000000,fecha:“2025-04-23”},
+{id:“y2”,tipo:“gasto”,concepto:“Adelanto comision vendedor”,monto:500000,fecha:“2025-04-23”},
+{id:“y3”,tipo:“gasto”,concepto:“Saldo terreno”,monto:233333334,fecha:“2025-06-02”},
+{id:“y4”,tipo:“gasto”,concepto:“Escribania”,monto:3155115,fecha:“2025-06-02”},
+{id:“y5”,tipo:“gasto”,concepto:“Comision Sonar”,monto:3150000,fecha:“2025-06-02”},
+{id:“y6”,tipo:“gasto”,concepto:“Saldo comision vendedor”,monto:14500000,fecha:“2025-06-02”},
+{id:“y7”,tipo:“ingreso”,concepto:“Cobro alquiler terreno”,monto:1100000,fecha:“2025-06-02”},
+{id:“y8”,tipo:“ingreso”,concepto:“Cobro diferencia Ricar”,monto:733333,fecha:“2025-06-02”},
+{id:“y9”,tipo:“gasto”,concepto:“Mades 50pct”,monto:1237500,fecha:“2025-09-01”},
+{id:“y10”,tipo:“gasto”,concepto:“Aprobacion Ybycui”,monto:1687500,fecha:“2025-10-13”},
+{id:“y11”,tipo:“gasto”,concepto:“Fraccionamiento terreno”,monto:4826250,fecha:“2025-10-17”},
+{id:“y12”,tipo:“gasto”,concepto:“Saldo Mades”,monto:1237500,fecha:“2025-12-02”},
+{id:“y13”,tipo:“gasto”,concepto:“Portico y letras corporeas”,monto:5310000,fecha:“2026-01-07”},
+{id:“y14”,tipo:“gasto”,concepto:“Honorarios arquitecto”,monto:1237500,fecha:“2026-01-12”},
+{id:“y15”,tipo:“gasto”,concepto:“Anticipo pileta”,monto:4500000,fecha:“2026-01-26”},
+{id:“y16”,tipo:“ingreso”,concepto:“Ventas febrero 2026”,monto:3297154,fecha:“2026-03-11”},
+{id:“y17”,tipo:“ingreso”,concepto:“Ventas marzo 2026”,monto:14747645,fecha:“2026-04-13”}
+]},
+{id:“sapucai”,name:“Sapucai”,desc:””,movimientos:[
+{id:“s1”,tipo:“gasto”,concepto:“Sena compra terreno”,monto:57150000,fecha:“2026-04-24”},
+{id:“s2”,tipo:“gasto”,concepto:“FEE Sonar”,monto:6500000,fecha:“2026-04-24”}
+]}
+];
 }
 
 function persist(cb){
-  fetch(SURL,{method:"POST",body:JSON.stringify({projects:projects})})
-    .then(function(){ toast("Guardado"); if(cb) cb(); })
-    .catch(function(){ toast("Error al guardar"); if(cb) cb(); });
+fetch(SURL,{method:“POST”,body:JSON.stringify({projects:projects})})
+.then(function(){ toast(“Guardado”); if(cb) cb(); })
+.catch(function(){ toast(“Error al guardar”); if(cb) cb(); });
 }
 
 function save(){ persist(null); render(); }
 
 function render(){
-  var html=view==="dash"?dashV():projV();
-  if(conf) html+=confV();
-  document.getElementById("root").innerHTML=html;
+var html=view===“dash”?dashV():projV();
+if(conf) html+=confV();
+document.getElementById(“root”).innerHTML=html;
 }
 
 function dashV(){
-  var ti=0,tg=0,mx=1;
-  projects.forEach(function(p){
-    var t=tots(p); ti+=t.ing; tg+=t.gas;
-    if(t.ing>mx) mx=t.ing; if(t.gas>mx) mx=t.gas;
-  });
-  var ts=ti-tg, tr=tg>0?(ti-tg)/tg*100:0;
+var ti=0,tg=0,mx=1;
+projects.forEach(function(p){
+var t=tots(p); ti+=t.ing; tg+=t.gas;
+if(t.ing>mx) mx=t.ing; if(t.gas>mx) mx=t.gas;
+});
+var ts=ti-tg, tr=tg>0?(ti-tg)/tg*100:0;
 
-  var comp="";
-  projects.forEach(function(p){
-    var t=tots(p);
-    comp+='<div style="margin-bottom:14px">';
-    comp+='<div style="font-size:13px;font-weight:700;margin-bottom:5px;color:#111">'+p.name+'</div>';
-    comp+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">';
-    comp+='<span style="font-size:11px;color:#444;font-weight:600;width:60px;flex-shrink:0">Ingresos</span>';
-    comp+='<div class="bar" style="flex:1;margin:0"><div class="bf" style="width:'+(t.ing/mx*100)+'%;background:#1D9E75"></div></div>';
-    comp+='<span style="font-size:11px;color:#1a7a58;font-weight:700;width:75px;text-align:right;flex-shrink:0">'+gs(t.ing)+'</span></div>';
-    comp+='<div style="display:flex;align-items:center;gap:6px">';
-    comp+='<span style="font-size:11px;color:#444;font-weight:600;width:60px;flex-shrink:0">Gastos</span>';
-    comp+='<div class="bar" style="flex:1;margin:0"><div class="bf" style="width:'+(t.gas/mx*100)+'%;background:#E24B4A"></div></div>';
-    comp+='<span style="font-size:11px;color:#b53030;font-weight:700;width:75px;text-align:right;flex-shrink:0">'+gs(t.gas)+'</span></div></div>';
-  });
+var comp=””;
+projects.forEach(function(p){
+var t=tots(p);
+comp+=’<div style="margin-bottom:14px">’;
+comp+=’<div style="font-size:13px;font-weight:700;margin-bottom:5px;color:#111">’+p.name+’</div>’;
+comp+=’<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">’;
+comp+=’<span style="font-size:11px;color:#444;font-weight:600;width:60px;flex-shrink:0">Ingresos</span>’;
+comp+=’<div class="bar" style="flex:1;margin:0"><div class="bf" style="width:'+(t.ing/mx*100)+'%;background:#1D9E75"></div></div>’;
+comp+=’<span style="font-size:11px;color:#1a7a58;font-weight:700;width:75px;text-align:right;flex-shrink:0">’+gs(t.ing)+’</span></div>’;
+comp+=’<div style="display:flex;align-items:center;gap:6px">’;
+comp+=’<span style="font-size:11px;color:#444;font-weight:600;width:60px;flex-shrink:0">Gastos</span>’;
+comp+=’<div class="bar" style="flex:1;margin:0"><div class="bf" style="width:'+(t.gas/mx*100)+'%;background:#E24B4A"></div></div>’;
+comp+=’<span style="font-size:11px;color:#b53030;font-weight:700;width:75px;text-align:right;flex-shrink:0">’+gs(t.gas)+’</span></div></div>’;
+});
 
-  var cards="";
-  projects.forEach(function(p){
-    var t=tots(p), pt=t.gas>0?Math.min(100,t.ing/t.gas*100):0;
-    var sc=t.sal>=0?"#1a7a58":"#b53030", rc=t.roi>=0?"#1a7a58":"#b53030";
-    cards+='<div class="card" style="cursor:pointer" onclick="openP(\''+p.id+'\')"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">';
-    cards+='<div class="av" style="width:36px;height:36px;font-size:12px">'+p.name.slice(0,2).toUpperCase()+'</div>';
-    cards+='<div style="flex:1;min-width:0"><div style="font-weight:700;font-size:15px;color:#111">'+p.name+'</div>';
-    cards+='<div style="font-size:11px;color:#555;font-weight:500">'+(p.movimientos||[]).length+' movimientos</div></div>';
-    cards+='<div style="text-align:right;flex-shrink:0"><div style="font-size:15px;font-weight:700;color:'+sc+'">'+gs(t.sal)+'</div>';
-    cards+='<div style="font-size:12px;font-weight:600;color:'+rc+'">ROI '+pp(t.roi)+'</div></div>';
-    cards+='<button class="db" onclick="event.stopPropagation();askDel(\''+p.id+'\')">x</button></div>';
-    cards+=bar(pt,pt>=100?"#1D9E75":"#534AB7");
-    cards+='<div style="display:flex;justify-content:space-between;font-size:11px;color:#555;font-weight:500">';
-    cards+='<span>Recuperado '+pt.toFixed(0)+'%</span><span>'+gs(t.ing)+' de '+gs(t.gas)+'</span></div></div>';
-  });
+var cards=””;
+projects.forEach(function(p){
+var t=tots(p), pt=t.gas>0?Math.min(100,t.ing/t.gas*100):0;
+var sc=t.sal>=0?”#1a7a58”:”#b53030”, rc=t.roi>=0?”#1a7a58”:”#b53030”;
+cards+=’<div class="card" style="cursor:pointer" onclick="openP(\''+p.id+'\')"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">’;
+cards+=’<div class="av" style="width:36px;height:36px;font-size:12px">’+p.name.slice(0,2).toUpperCase()+’</div>’;
+cards+=’<div style="flex:1;min-width:0"><div style="font-weight:700;font-size:15px;color:#111">’+p.name+’</div>’;
+cards+=’<div style="font-size:11px;color:#555;font-weight:500">’+(p.movimientos||[]).length+’ movimientos</div></div>’;
+cards+=’<div style="text-align:right;flex-shrink:0"><div style="font-size:15px;font-weight:700;color:'+sc+'">’+gs(t.sal)+’</div>’;
+cards+=’<div style="font-size:12px;font-weight:600;color:'+rc+'">ROI ‘+pp(t.roi)+’</div></div>’;
+cards+=’<button class="db" onclick="event.stopPropagation();askDel(\''+p.id+'\')">x</button></div>’;
+cards+=bar(pt,pt>=100?”#1D9E75”:”#534AB7”);
+cards+=’<div style="display:flex;justify-content:space-between;font-size:11px;color:#555;font-weight:500">’;
+cards+=’<span>Recuperado ‘+pt.toFixed(0)+’%</span><span>’+gs(t.ing)+’ de ‘+gs(t.gas)+’</span></div></div>’;
+});
 
-  var form="";
-  if(showAddP){
-    form='<div class="card"><input placeholder="Nombre del proyecto" oninput="np.name=this.value" value="'+np.name+'">';
-    form+='<input placeholder="Descripcion (opcional)" oninput="np.desc=this.value" value="'+np.desc+'">';
-    form+='<div style="display:flex;gap:8px"><button onclick="doAddP()" style="flex:1">Crear</button>';
-    form+='<button onclick="showAddP=false;render()" style="flex:1">Cancelar</button></div></div>';
-  }
+var form=””;
+if(showAddP){
+form=’<div class="card"><input placeholder="Nombre del proyecto" oninput="np.name=this.value" value="'+np.name+'">’;
+form+=’<input placeholder="Descripcion (opcional)" oninput="np.desc=this.value" value="'+np.desc+'">’;
+form+=’<div style="display:flex;gap:8px"><button onclick="doAddP()" style="flex:1">Crear</button>’;
+form+=’<button onclick="showAddP=false;render()" style="flex:1">Cancelar</button></div></div>’;
+}
 
-  var h='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">';
-  h+='<div><div style="font-size:17px;font-weight:700;color:#111">Portfolio de inversiones</div>';
-  h+='<div style="font-size:12px;color:#555;font-weight:500">'+projects.length+' proyectos</div></div>';
-  h+='<button onclick="showAddP=true;render()">+ Nuevo</button></div>';
-  h+='<div class="g2">'+met("Total invertido",gs(tg),"red")+met("Total recuperado",gs(ti),"grn")+'</div>';
-  h+='<div class="g2">'+met("Saldo global",gs(ts),ts>=0?"grn":"red")+met("ROI global",pp(tr),tr>=0?"grn":"red")+'</div>';
-  h+='<div class="card"><div class="st">Comparativa por proyecto</div>'+comp+'</div>';
-  h+=form+cards;
-  return h;
+var h=’<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">’;
+h+=’<div><div style="font-size:17px;font-weight:700;color:#111">Portfolio de inversiones</div>’;
+h+=’<div style="font-size:12px;color:#555;font-weight:500">’+projects.length+’ proyectos</div></div>’;
+h+=’<button onclick="showAddP=true;render()">+ Nuevo</button></div>’;
+h+=’<div class="g2">’+met(“Total invertido”,gs(tg),“red”)+met(“Total recuperado”,gs(ti),“grn”)+’</div>’;
+h+=’<div class="g2">’+met(“Saldo global”,gs(ts),ts>=0?“grn”:“red”)+met(“ROI global”,pp(tr),tr>=0?“grn”:“red”)+’</div>’;
+h+=’<div class="card"><div class="st">Comparativa por proyecto</div>’+comp+’</div>’;
+h+=form+cards;
+return h;
 }
 
 function projV(){
-  var p=null;
-  projects.forEach(function(x){ if(x.id===pid) p=x; });
-  if(!p) return "";
-  var t=tots(p), pt=t.gas>0?Math.min(100,t.ing/t.gas*100):0;
-  var movs=(p.movimientos||[]).slice().sort(function(a,b){ return a.fecha<b.fecha?1:-1; });
-  var grp={};
-  (p.movimientos||[]).forEach(function(m){ if(m.tipo==="gasto") grp[m.concepto]=(grp[m.concepto]||0)+m.monto; });
-  var topG=Object.keys(grp).map(function(k){ return [k,grp[k]]; }).sort(function(a,b){ return b[1]-a[1]; }).slice(0,6);
-  var mg=topG.length?topG[0][1]:1;
-  var pr=PROY[pid];
-  var anioActual=new Date().getFullYear();
+var p=null;
+projects.forEach(function(x){ if(x.id===pid) p=x; });
+if(!p) return “”;
+var t=tots(p), pt=t.gas>0?Math.min(100,t.ing/t.gas*100):0;
+var movs=(p.movimientos||[]).slice().sort(function(a,b){ return a.fecha<b.fecha?1:-1; });
+var grp={};
+(p.movimientos||[]).forEach(function(m){ if(m.tipo===“gasto”) grp[m.concepto]=(grp[m.concepto]||0)+m.monto; });
+var topG=Object.keys(grp).map(function(k){ return [k,grp[k]]; }).sort(function(a,b){ return b[1]-a[1]; }).slice(0,6);
+var mg=topG.length?topG[0][1]:1;
+var pr=PROY[pid];
+var anioActual=new Date().getFullYear();
 
-  var hdr='<button style="background:none;border:none;color:#666;font-size:13px;padding:0;margin-bottom:14px;cursor:pointer;font-weight:600" onclick="goBack()">Atras</button>';
-  hdr+='<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">';
-  hdr+='<div class="av" style="width:40px;height:40px;font-size:13px">'+p.name.slice(0,2).toUpperCase()+'</div>';
-  hdr+='<div style="font-weight:700;font-size:16px;color:#111">'+p.name+'</div></div>';
-  hdr+='<div class="g2">'+met("Invertido",gs(t.gas),"red")+met("Recuperado",gs(t.ing),"grn")+'</div>';
-  hdr+='<div class="g2">'+met("Saldo neto",gs(t.sal),t.sal>=0?"grn":"red")+met("ROI",pp(t.roi),t.roi>=0?"grn":"red")+'</div>';
-  hdr+='<div class="tabs">';
-  hdr+='<button class="tab '+(curtab==="mov"?"on":"")+'" onclick="curtab=\'mov\';render()">Movimientos</button>';
-  hdr+='<button class="tab '+(curtab==="ana"?"on":"")+'" onclick="curtab=\'ana\';render()">Analisis</button>';
-  hdr+='<button class="tab '+(curtab==="proy"?"on":"")+'" onclick="curtab=\'proy\';render()">Proyeccion</button>';
-  hdr+='</div>';
+var hdr=’<button style="background:none;border:none;color:#666;font-size:13px;padding:0;margin-bottom:14px;cursor:pointer;font-weight:600" onclick="goBack()">Atras</button>’;
+hdr+=’<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">’;
+hdr+=’<div class="av" style="width:40px;height:40px;font-size:13px">’+p.name.slice(0,2).toUpperCase()+’</div>’;
+hdr+=’<div style="font-weight:700;font-size:16px;color:#111">’+p.name+’</div></div>’;
+hdr+=’<div class="g2">’+met(“Invertido”,gs(t.gas),“red”)+met(“Recuperado”,gs(t.ing),“grn”)+’</div>’;
+hdr+=’<div class="g2">’+met(“Saldo neto”,gs(t.sal),t.sal>=0?“grn”:“red”)+met(“ROI”,pp(t.roi),t.roi>=0?“grn”:“red”)+’</div>’;
+hdr+=’<div class="tabs">’;
+hdr+=’<button class=“tab ‘+(curtab===“mov”?“on”:””)+’” onclick=“curtab='mov';render()”>Movimientos</button>’;
+hdr+=’<button class=“tab ‘+(curtab===“ana”?“on”:””)+’” onclick=“curtab='ana';render()”>Analisis</button>’;
+hdr+=’<button class=“tab ‘+(curtab===“proy”?“on”:””)+’” onclick=“curtab='proy';render()”>Proyeccion</button>’;
+hdr+=’</div>’;
 
-  if(curtab==="mov"){
-    var form="";
-    if(showAddM){
-      form='<div class="card"><div style="display:flex;gap:8px">';
-      form+='<select style="flex:1;width:auto" onchange="nm.tipo=this.value">';
-      form+='<option value="gasto"'+(nm.tipo==="gasto"?" selected":"")+'>Gasto</option>';
-      form+='<option value="ingreso"'+(nm.tipo==="ingreso"?" selected":"")+'>Ingreso</option>';
-      form+='</select><input type="date" value="'+nm.fecha+'" oninput="nm.fecha=this.value" style="flex:1;width:auto"></div>';
-      form+='<input placeholder="Concepto" value="'+nm.concepto+'" oninput="nm.concepto=this.value">';
-      form+='<input type="number" placeholder="Monto (Gs.)" value="'+nm.monto+'" oninput="nm.monto=this.value">';
-      form+='<div style="display:flex;gap:8px"><button onclick="doAddM()" style="flex:1">Guardar</button>';
-      form+='<button onclick="showAddM=false;render()" style="flex:1">Cancelar</button></div></div>';
-    }
-    var rows="";
-    if(movs.length===0){
-      rows='<p style="color:#666;font-size:13px;font-weight:500">Sin movimientos aun.</p>';
-    } else {
-      rows='<div class="card" style="padding:0;overflow:hidden">';
-      movs.forEach(function(m){
-        var mc=m.tipo==="ingreso"?"#1a7a58":"#b53030";
-        var dc=m.tipo==="ingreso"?"#1D9E75":"#E24B4A";
-        var sg=m.tipo==="ingreso"?"+":"-";
-        rows+='<div class="mr"><div class="dot" style="background:'+dc+'"></div>';
-        rows+='<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#111">'+m.concepto+'</div>';
-        rows+='<div style="font-size:11px;color:#666;font-weight:500">'+m.fecha+'</div></div>';
-        rows+='<div style="font-size:13px;font-weight:700;color:'+mc+';white-space:nowrap;flex-shrink:0">'+sg+gs(m.monto)+'</div>';
-        rows+='<button class="db" onclick="doDelM(\''+m.id+'\')">x</button></div>';
-      });
-      rows+='</div>';
-    }
-    return hdr+'<div style="display:flex;justify-content:flex-end;margin-bottom:10px"><button onclick="showAddM=true;render()">+ Agregar</button></div>'+form+rows;
-  }
+if(curtab===“mov”){
+var form=””;
+if(showAddM){
+form=’<div class="card"><div style="display:flex;gap:8px">’;
+form+=’<select style="flex:1;width:auto" onchange="nm.tipo=this.value">’;
+form+=’<option value=“gasto”’+(nm.tipo===“gasto”?” selected”:””)+’>Gasto</option>’;
+form+=’<option value=“ingreso”’+(nm.tipo===“ingreso”?” selected”:””)+’>Ingreso</option>’;
+form+=’</select><input type="date" value="'+nm.fecha+'" oninput="nm.fecha=this.value" style="flex:1;width:auto"></div>’;
+form+=’<input placeholder="Concepto" value="'+nm.concepto+'" oninput="nm.concepto=this.value">’;
+form+=’<input type="number" placeholder="Monto (Gs.)" value="'+nm.monto+'" oninput="nm.monto=this.value">’;
+form+=’<div style="display:flex;gap:8px"><button onclick="doAddM()" style="flex:1">Guardar</button>’;
+form+=’<button onclick="showAddM=false;render()" style="flex:1">Cancelar</button></div></div>’;
+}
+var rows=””;
+if(movs.length===0){
+rows=’<p style="color:#666;font-size:13px;font-weight:500">Sin movimientos aun.</p>’;
+} else {
+rows=’<div class="card" style="padding:0;overflow:hidden">’;
+movs.forEach(function(m){
+var mc=m.tipo===“ingreso”?”#1a7a58”:”#b53030”;
+var dc=m.tipo===“ingreso”?”#1D9E75”:”#E24B4A”;
+var sg=m.tipo===“ingreso”?”+”:”-”;
+rows+=’<div class="mr"><div class="dot" style="background:'+dc+'"></div>’;
+rows+=’<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#111">’+m.concepto+’</div>’;
+rows+=’<div style="font-size:11px;color:#666;font-weight:500">’+m.fecha+’</div></div>’;
+rows+=’<div style="font-size:13px;font-weight:700;color:'+mc+';white-space:nowrap;flex-shrink:0">’+sg+gs(m.monto)+’</div>’;
+rows+=’<button class="db" onclick="doDelM(\''+m.id+'\')">x</button></div>’;
+});
+rows+=’</div>’;
+}
+return hdr+’<div style="display:flex;justify-content:flex-end;margin-bottom:10px"><button onclick="showAddM=true;render()">+ Agregar</button></div>’+form+rows;
+}
 
-  if(curtab==="ana"){
-    var ana='<div class="card"><div class="st">Progreso de recuperacion</div>';
-    ana+=bar(pt,pt>=100?"#1D9E75":"#534AB7");
-    ana+='<div style="display:flex;justify-content:space-between;font-size:11px;color:#555;font-weight:600;margin-top:4px">';
-    ana+='<span>'+pt.toFixed(1)+'% recuperado</span><span>'+gs(t.ing)+' de '+gs(t.gas)+'</span></div></div>';
-    if(topG.length){
-      ana+='<div class="card"><div class="st">Composicion de gastos</div>';
-      topG.forEach(function(e,i){
-        var pv=t.gas>0?(e[1]/t.gas*100).toFixed(1):0;
-        ana+='<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px">';
-        ana+='<span style="color:#444;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%">'+e[0]+'</span>';
-        ana+='<span style="font-weight:700;color:#111">'+pv+'%</span></div>';
-        ana+=bar(e[1]/mg*100,CLR[i])+'</div>';
-      });
-      ana+='</div>';
-    }
-    ana+='<div class="card"><div class="st">Indicadores financieros</div><table>';
-    ana+='<tr><td>Total invertido</td><td>'+gs(t.gas)+'</td></tr>';
-    ana+='<tr><td>Total recuperado</td><td>'+gs(t.ing)+'</td></tr>';
-    ana+='<tr><td>Saldo neto</td><td style="color:'+(t.sal>=0?"#1a7a58":"#b53030")+'">'+gs(t.sal)+'</td></tr>';
-    ana+='<tr><td>ROI</td><td style="color:'+(t.roi>=0?"#1a7a58":"#b53030")+'">'+pp(t.roi)+'</td></tr>';
-    ana+='<tr><td>Cobertura</td><td>'+(t.gas>0?(t.ing/t.gas*100).toFixed(1):0)+'%</td></tr>';
-    ana+='<tr><td>Movimientos</td><td>'+(p.movimientos||[]).length+'</td></tr>';
-    ana+='</table></div>';
-    return hdr+ana;
-  }
+if(curtab===“ana”){
+var ana=’<div class="card"><div class="st">Progreso de recuperacion</div>’;
+ana+=bar(pt,pt>=100?”#1D9E75”:”#534AB7”);
+ana+=’<div style="display:flex;justify-content:space-between;font-size:11px;color:#555;font-weight:600;margin-top:4px">’;
+ana+=’<span>’+pt.toFixed(1)+’% recuperado</span><span>’+gs(t.ing)+’ de ‘+gs(t.gas)+’</span></div></div>’;
+if(topG.length){
+ana+=’<div class="card"><div class="st">Composicion de gastos</div>’;
+topG.forEach(function(e,i){
+var pv=t.gas>0?(e[1]/t.gas*100).toFixed(1):0;
+ana+=’<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px">’;
+ana+=’<span style="color:#444;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%">’+e[0]+’</span>’;
+ana+=’<span style="font-weight:700;color:#111">’+pv+’%</span></div>’;
+ana+=bar(e[1]/mg*100,CLR[i])+’</div>’;
+});
+ana+=’</div>’;
+}
+ana+=’<div class="card"><div class="st">Indicadores financieros</div><table>’;
+ana+=’<tr><td>Total invertido</td><td>’+gs(t.gas)+’</td></tr>’;
+ana+=’<tr><td>Total recuperado</td><td>’+gs(t.ing)+’</td></tr>’;
+ana+=’<tr><td>Saldo neto</td><td style=“color:’+(t.sal>=0?”#1a7a58”:”#b53030”)+’”>’+gs(t.sal)+’</td></tr>’;
+ana+=’<tr><td>ROI</td><td style=“color:’+(t.roi>=0?”#1a7a58”:”#b53030”)+’”>’+pp(t.roi)+’</td></tr>’;
+ana+=’<tr><td>Cobertura</td><td>’+(t.gas>0?(t.ing/t.gas*100).toFixed(1):0)+’%</td></tr>’;
+ana+=’<tr><td>Movimientos</td><td>’+(p.movimientos||[]).length+’</td></tr>’;
+ana+=’</table></div>’;
+return hdr+ana;
+}
 
-  if(curtab==="proy"){
-    if(!pr) return hdr+'<p style="color:#666;font-size:13px">No hay proyecciones para este proyecto.</p>';
-    var pctIng=pr.recaudacionNeta>0?Math.min(100,t.ing/pr.recaudacionNeta*100):0;
-    var pctGas=pr.inversionTotal>0?Math.min(100,t.gas/pr.inversionTotal*100):0;
-    var proy='<div class="card"><div class="st">Real vs Proyectado</div>';
-    proy+='<div style="margin-bottom:14px">';
-    proy+='<div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px">';
-    proy+='<span style="color:#444">Ingresos reales vs proyectados</span>';
-    proy+='<span style="color:'+(pctIng>=100?"#1a7a58":"#534AB7")+'">'+pctIng.toFixed(1)+'%</span></div>';
-    proy+='<div style="height:8px;background:#e0e0e0;border-radius:6px;overflow:hidden;margin-bottom:4px">';
-    proy+='<div style="height:100%;width:'+pctIng+'%;background:'+(pctIng>=100?"#1D9E75":"#534AB7")+';border-radius:6px"></div></div>';
-    proy+='<div style="display:flex;justify-content:space-between;font-size:11px;color:#666">';
-    proy+='<span>Real: '+gs(t.ing)+'</span><span>Proyectado: '+gs(pr.recaudacionNeta)+'</span></div></div>';
-    proy+='<div style="margin-bottom:4px">';
-    proy+='<div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px">';
-    proy+='<span style="color:#444">Gastos reales vs presupuestados</span>';
-    proy+='<span style="color:'+(pctGas>100?"#b53030":"#1a7a58")+'">'+pctGas.toFixed(1)+'%</span></div>';
-    proy+='<div style="height:8px;background:#e0e0e0;border-radius:6px;overflow:hidden;margin-bottom:4px">';
-    proy+='<div style="height:100%;width:'+pctGas+'%;background:'+(pctGas>100?"#E24B4A":"#534AB7")+';border-radius:6px"></div></div>';
-    proy+='<div style="display:flex;justify-content:space-between;font-size:11px;color:#666">';
-    proy+='<span>Real: '+gs(t.gas)+'</span><span>Presupuestado: '+gs(pr.inversionTotal)+'</span></div></div></div>';
-    proy+='<div class="card"><div class="st">Indicadores proyectados (tu '+pr.participacion+'%)</div><table>';
-    proy+='<tr><td>Inversion proyectada</td><td>'+gs(pr.inversionTotal)+'</td></tr>';
-    proy+='<tr><td>Recaudacion neta</td><td>'+gs(pr.recaudacionNeta)+'</td></tr>';
-    proy+='<tr><td>Utilidad neta</td><td>'+gs(pr.utilidadNeta)+'</td></tr>';
-    proy+='<tr><td>ROI proyectado</td><td>'+pr.roi.toFixed(1)+'%</td></tr>';
-    proy+='<tr><td>TIR proyectada</td><td>'+pr.tir.toFixed(1)+'%</td></tr>';
-    proy+='<tr><td>VAN (@ 12%)</td><td>'+gs(pr.van)+'</td></tr>';
-    proy+='<tr><td>MOIC</td><td>'+pr.moic+'x</td></tr>';
-    proy+='<tr><td>Payback</td><td>'+pr.payback+'</td></tr>';
-    proy+='</table></div>';
-    proy+='<div class="card"><div class="st">Flujo anual proyectado</div><div style="overflow-x:auto"><table style="min-width:300px">';
-    proy+='<tr style="border-bottom:2px solid #e0e0e0"><td style="font-weight:700;color:#444">Anio</td><td style="font-weight:700;color:#1a7a58;text-align:right">Ingresos</td><td style="font-weight:700;color:#444;text-align:right">Acumulado</td></tr>';
-    pr.flujo.forEach(function(f){
-      var es=f.anio===anioActual;
-      var bg=es?"background:#fffbe6":"";
-      proy+='<tr style="border-bottom:1px solid #f0f0f0;'+bg+'">';
-      proy+='<td style="font-weight:'+(es?"700":"500")+';color:'+(es?"#BA7517":"#444")+'">';
-      proy+=f.anio+(es?" ◀":"")+' </td>';
-      proy+='<td style="text-align:right;color:#1a7a58;font-weight:600">'+gs(f.ingresos)+'</td>';
-      proy+='<td style="text-align:right;font-weight:600;color:'+(f.acumulado>=0?"#1a7a58":"#b53030")+'">'+gs(f.acumulado)+'</td></tr>';
-    });
-    proy+='</table></div></div>';
-    return hdr+proy;
-  }
-  return hdr;
+if(curtab===“proy”){
+if(!pr) return hdr+’<p style="color:#666;font-size:13px">No hay proyecciones para este proyecto.</p>’;
+var pctIng=pr.recaudacionNeta>0?Math.min(100,t.ing/pr.recaudacionNeta*100):0;
+var pctGas=pr.inversionTotal>0?Math.min(100,t.gas/pr.inversionTotal*100):0;
+var proy=’<div class="card"><div class="st">Real vs Proyectado</div>’;
+proy+=’<div style="margin-bottom:14px">’;
+proy+=’<div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px">’;
+proy+=’<span style="color:#444">Ingresos reales vs proyectados</span>’;
+proy+=’<span style=“color:’+(pctIng>=100?”#1a7a58”:”#534AB7”)+’”>’+pctIng.toFixed(1)+’%</span></div>’;
+proy+=’<div style="height:8px;background:#e0e0e0;border-radius:6px;overflow:hidden;margin-bottom:4px">’;
+proy+=’<div style=“height:100%;width:’+pctIng+’%;background:’+(pctIng>=100?”#1D9E75”:”#534AB7”)+’;border-radius:6px”></div></div>’;
+proy+=’<div style="display:flex;justify-content:space-between;font-size:11px;color:#666">’;
+proy+=’<span>Real: ‘+gs(t.ing)+’</span><span>Proyectado: ‘+gs(pr.recaudacionNeta)+’</span></div></div>’;
+proy+=’<div style="margin-bottom:4px">’;
+proy+=’<div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px">’;
+proy+=’<span style="color:#444">Gastos reales vs presupuestados</span>’;
+proy+=’<span style=“color:’+(pctGas>100?”#b53030”:”#1a7a58”)+’”>’+pctGas.toFixed(1)+’%</span></div>’;
+proy+=’<div style="height:8px;background:#e0e0e0;border-radius:6px;overflow:hidden;margin-bottom:4px">’;
+proy+=’<div style=“height:100%;width:’+pctGas+’%;background:’+(pctGas>100?”#E24B4A”:”#534AB7”)+’;border-radius:6px”></div></div>’;
+proy+=’<div style="display:flex;justify-content:space-between;font-size:11px;color:#666">’;
+proy+=’<span>Real: ‘+gs(t.gas)+’</span><span>Presupuestado: ‘+gs(pr.inversionTotal)+’</span></div></div></div>’;
+proy+=’<div class="card"><div class="st">Indicadores proyectados (tu ‘+pr.participacion+’%)</div><table>’;
+proy+=’<tr><td>Inversion proyectada</td><td>’+gs(pr.inversionTotal)+’</td></tr>’;
+proy+=’<tr><td>Recaudacion neta</td><td>’+gs(pr.recaudacionNeta)+’</td></tr>’;
+proy+=’<tr><td>Utilidad neta</td><td>’+gs(pr.utilidadNeta)+’</td></tr>’;
+proy+=’<tr><td>ROI proyectado</td><td>’+pr.roi.toFixed(1)+’%</td></tr>’;
+proy+=’<tr><td>TIR proyectada</td><td>’+pr.tir.toFixed(1)+’%</td></tr>’;
+proy+=’<tr><td>VAN (@ 12%)</td><td>’+gs(pr.van)+’</td></tr>’;
+proy+=’<tr><td>MOIC</td><td>’+pr.moic+‘x</td></tr>’;
+proy+=’<tr><td>Payback</td><td>’+pr.payback+’</td></tr>’;
+proy+=’</table></div>’;
+proy+=’<div class="card"><div class="st">Flujo anual proyectado</div><div style="overflow-x:auto"><table style="min-width:300px">’;
+proy+=’<tr style="border-bottom:2px solid #e0e0e0"><td style="font-weight:700;color:#444">Anio</td><td style="font-weight:700;color:#1a7a58;text-align:right">Ingresos</td><td style="font-weight:700;color:#444;text-align:right">Acumulado</td></tr>’;
+pr.flujo.forEach(function(f){
+var es=f.anio===anioActual;
+var bg=es?“background:#fffbe6”:””;
+proy+=’<tr style="border-bottom:1px solid #f0f0f0;'+bg+'">’;
+proy+=’<td style=“font-weight:’+(es?“700”:“500”)+’;color:’+(es?”#BA7517”:”#444”)+’”>’;
+proy+=f.anio+(es?” ◀”:””)+’ </td>’;
+proy+=’<td style="text-align:right;color:#1a7a58;font-weight:600">’+gs(f.ingresos)+’</td>’;
+proy+=’<td style=“text-align:right;font-weight:600;color:’+(f.acumulado>=0?”#1a7a58”:”#b53030”)+’”>’+gs(f.acumulado)+’</td></tr>’;
+});
+proy+=’</table></div></div>’;
+return hdr+proy;
+}
+return hdr;
 }
 
 function confV(){
-  return '<div class="ov"><div class="card" style="max-width:290px;width:100%">'
-    +'<p style="font-size:13px;margin-bottom:14px;color:#111;font-weight:500">Eliminar este proyecto? No se puede deshacer.</p>'
-    +'<div style="display:flex;gap:8px">'
-    +'<button onclick="doDelete()" style="flex:1;color:#b53030;font-weight:700">Eliminar</button>'
-    +'<button onclick="conf=null;render()" style="flex:1">Cancelar</button>'
-    +'</div></div></div>';
+return ‘<div class="ov"><div class="card" style="max-width:290px;width:100%">’
++’<p style="font-size:13px;margin-bottom:14px;color:#111;font-weight:500">Eliminar este proyecto? No se puede deshacer.</p>’
++’<div style="display:flex;gap:8px">’
++’<button onclick="doDelete()" style="flex:1;color:#b53030;font-weight:700">Eliminar</button>’
++’<button onclick="conf=null;render()" style="flex:1">Cancelar</button>’
++’</div></div></div>’;
 }
 
-function openP(id){ pid=id; view="proj"; curtab="mov"; showAddM=false; render(); }
-function goBack(){ view="dash"; pid=null; showAddP=false; render(); }
+function openP(id){ pid=id; view=“proj”; curtab=“mov”; showAddM=false; render(); }
+function goBack(){ view=“dash”; pid=null; showAddP=false; render(); }
 function askDel(id){ conf=id; render(); }
 
 function doAddP(){
-  var n=np.name.trim(); if(!n) return;
-  projects.push({id:uid(),name:n,desc:np.desc,movimientos:[]});
-  np={name:"",desc:""}; showAddP=false; save();
+var n=np.name.trim(); if(!n) return;
+projects.push({id:uid(),name:n,desc:np.desc,movimientos:[]});
+np={name:””,desc:””}; showAddP=false; save();
 }
 function doDelete(){
-  projects=projects.filter(function(p){ return p.id!==conf; });
-  if(pid===conf){ view="dash"; pid=null; }
-  conf=null; save();
+projects=projects.filter(function(p){ return p.id!==conf; });
+if(pid===conf){ view=“dash”; pid=null; }
+conf=null; save();
 }
 function doAddM(){
-  var mo=parseFloat(nm.monto);
-  if(!nm.concepto.trim()||isNaN(mo)||mo<=0) return;
-  projects.forEach(function(p){
-    if(p.id===pid) p.movimientos.push({id:uid(),tipo:nm.tipo,concepto:nm.concepto,monto:mo,fecha:nm.fecha});
-  });
-  nm={tipo:"gasto",concepto:"",monto:"",fecha:new Date().toISOString().slice(0,10)};
-  showAddM=false; save();
+var mo=parseFloat(nm.monto);
+if(!nm.concepto.trim()||isNaN(mo)||mo<=0) return;
+projects.forEach(function(p){
+if(p.id===pid) p.movimientos.push({id:uid(),tipo:nm.tipo,concepto:nm.concepto,monto:mo,fecha:nm.fecha});
+});
+nm={tipo:“gasto”,concepto:””,monto:””,fecha:new Date().toISOString().slice(0,10)};
+showAddM=false; save();
 }
 function doDelM(id){
-  projects.forEach(function(p){
-    if(p.id===pid) p.movimientos=p.movimientos.filter(function(m){ return m.id!==id; });
-  });
-  save();
+projects.forEach(function(p){
+if(p.id===pid) p.movimientos=p.movimientos.filter(function(m){ return m.id!==id; });
+});
+save();
 }
 
 loadData();
 </script>
+
 </body>
 </html>
 <meta charset="UTF-8">
@@ -451,268 +453,269 @@ var np = {name:"",desc:""};
 var nm = {tipo:"gasto",concepto:"",monto:"",fecha:""};
 nm.fecha = new Date().toISOString().slice(0,10);
 
-function uid(){ return "x"+Date.now()+Math.floor(Math.random()*9999); }
-function gs(n){ return "Gs. "+Math.round(n).toLocaleString("es-PY"); }
-function pp(n){ return (n>=0?"+":"")+n.toFixed(1)+"%"; }
+function uid(){ return “x”+Date.now()+Math.floor(Math.random()*9999); }
+function gs(n){ return “Gs. “+Math.round(n).toLocaleString(“es-PY”); }
+function pp(n){ return (n>=0?”+”:””)+n.toFixed(1)+”%”; }
 
 function toast(msg){
-  var el=document.getElementById("toast");
-  el.textContent=msg; el.classList.add("show");
-  setTimeout(function(){ el.classList.remove("show"); },2500);
+var el=document.getElementById(“toast”);
+el.textContent=msg; el.classList.add(“show”);
+setTimeout(function(){ el.classList.remove(“show”); },2500);
 }
 
 function tots(p){
-  var ing=0,gas=0;
-  (p.movimientos||[]).forEach(function(m){ if(m.tipo==="ingreso") ing+=m.monto; else gas+=m.monto; });
-  return {ing:ing,gas:gas,sal:ing-gas,roi:gas>0?(ing-gas)/gas*100:0};
+var ing=0,gas=0;
+(p.movimientos||[]).forEach(function(m){ if(m.tipo===“ingreso”) ing+=m.monto; else gas+=m.monto; });
+return {ing:ing,gas:gas,sal:ing-gas,roi:gas>0?(ing-gas)/gas*100:0};
 }
 
 function bar(pct,color){
-  return '<div class="bar"><div class="bf" style="width:'+pct+'%;background:'+color+'"></div></div>';
+return ‘<div class="bar"><div class="bf" style="width:'+pct+'%;background:'+color+'"></div></div>’;
 }
 
 function met(l,v,c){
-  return '<div class="metric"><div class="mlbl">'+l+'</div><div class="mval '+(c||"wht")+'">'+v+'</div></div>';
+return ‘<div class="metric"><div class="mlbl">’+l+’</div><div class=“mval ‘+(c||“wht”)+’”>’+v+’</div></div>’;
 }
 
 function loadData(){
-  var s = document.createElement("script");
-  window._cb = function(d){
-    projects = d.projects && d.projects.length ? d.projects : [];
-    if(!projects.length){ seedData(); persist(function(){ render(); }); }
-    else render();
-  };
-  s.src = SURL + "?callback=_cb";
-  s.onerror = function(){
-    document.getElementById("root").innerHTML='<div style="text-align:center;padding:40px;color:#c00">Error de conexion. Verifica tu internet.</div>';
-  };
-  document.head.appendChild(s);
+var s = document.createElement(“script”);
+window._cb = function(d){
+projects = d.projects && d.projects.length ? d.projects : [];
+if(!projects.length){ seedData(); persist(function(){ render(); }); }
+else render();
+};
+s.src = SURL + “?callback=_cb”;
+s.onerror = function(){
+document.getElementById(“root”).innerHTML=’<div style="text-align:center;padding:40px;color:#c00">Error de conexion. Verifica tu internet.</div>’;
+};
+document.head.appendChild(s);
 }
 
 function seedData(){
-  projects=[
-    {id:"ybycui",name:"Ybycui",desc:"",movimientos:[
-      {id:"y1",tipo:"gasto",concepto:"Sena compra terreno",monto:100000000,fecha:"2025-04-23"},
-      {id:"y2",tipo:"gasto",concepto:"Adelanto comision vendedor",monto:500000,fecha:"2025-04-23"},
-      {id:"y3",tipo:"gasto",concepto:"Saldo terreno",monto:233333334,fecha:"2025-06-02"},
-      {id:"y4",tipo:"gasto",concepto:"Escribania",monto:3155115,fecha:"2025-06-02"},
-      {id:"y5",tipo:"gasto",concepto:"Comision Sonar",monto:3150000,fecha:"2025-06-02"},
-      {id:"y6",tipo:"gasto",concepto:"Saldo comision vendedor",monto:14500000,fecha:"2025-06-02"},
-      {id:"y7",tipo:"ingreso",concepto:"Cobro alquiler terreno",monto:1100000,fecha:"2025-06-02"},
-      {id:"y8",tipo:"ingreso",concepto:"Cobro diferencia Ricar",monto:733333,fecha:"2025-06-02"},
-      {id:"y9",tipo:"gasto",concepto:"Mades 50pct",monto:1237500,fecha:"2025-09-01"},
-      {id:"y10",tipo:"gasto",concepto:"Aprobacion Ybycui",monto:1687500,fecha:"2025-10-13"},
-      {id:"y11",tipo:"gasto",concepto:"Fraccionamiento terreno",monto:4826250,fecha:"2025-10-17"},
-      {id:"y12",tipo:"gasto",concepto:"Saldo Mades",monto:1237500,fecha:"2025-12-02"},
-      {id:"y13",tipo:"gasto",concepto:"Portico y letras corporeas",monto:5310000,fecha:"2026-01-07"},
-      {id:"y14",tipo:"gasto",concepto:"Honorarios arquitecto",monto:1237500,fecha:"2026-01-12"},
-      {id:"y15",tipo:"gasto",concepto:"Anticipo pileta",monto:4500000,fecha:"2026-01-26"},
-      {id:"y16",tipo:"ingreso",concepto:"Ventas febrero 2026",monto:3297154,fecha:"2026-03-11"},
-      {id:"y17",tipo:"ingreso",concepto:"Ventas marzo 2026",monto:14747645,fecha:"2026-04-13"}
-    ]},
-    {id:"sapucai",name:"Sapucai",desc:"",movimientos:[
-      {id:"s1",tipo:"gasto",concepto:"Sena compra terreno",monto:57150000,fecha:"2026-04-24"},
-      {id:"s2",tipo:"gasto",concepto:"FEE Sonar",monto:6500000,fecha:"2026-04-24"}
-    ]}
-  ];
+projects=[
+{id:“ybycui”,name:“Ybycui”,desc:””,movimientos:[
+{id:“y1”,tipo:“gasto”,concepto:“Sena compra terreno”,monto:100000000,fecha:“2025-04-23”},
+{id:“y2”,tipo:“gasto”,concepto:“Adelanto comision vendedor”,monto:500000,fecha:“2025-04-23”},
+{id:“y3”,tipo:“gasto”,concepto:“Saldo terreno”,monto:233333334,fecha:“2025-06-02”},
+{id:“y4”,tipo:“gasto”,concepto:“Escribania”,monto:3155115,fecha:“2025-06-02”},
+{id:“y5”,tipo:“gasto”,concepto:“Comision Sonar”,monto:3150000,fecha:“2025-06-02”},
+{id:“y6”,tipo:“gasto”,concepto:“Saldo comision vendedor”,monto:14500000,fecha:“2025-06-02”},
+{id:“y7”,tipo:“ingreso”,concepto:“Cobro alquiler terreno”,monto:1100000,fecha:“2025-06-02”},
+{id:“y8”,tipo:“ingreso”,concepto:“Cobro diferencia Ricar”,monto:733333,fecha:“2025-06-02”},
+{id:“y9”,tipo:“gasto”,concepto:“Mades 50pct”,monto:1237500,fecha:“2025-09-01”},
+{id:“y10”,tipo:“gasto”,concepto:“Aprobacion Ybycui”,monto:1687500,fecha:“2025-10-13”},
+{id:“y11”,tipo:“gasto”,concepto:“Fraccionamiento terreno”,monto:4826250,fecha:“2025-10-17”},
+{id:“y12”,tipo:“gasto”,concepto:“Saldo Mades”,monto:1237500,fecha:“2025-12-02”},
+{id:“y13”,tipo:“gasto”,concepto:“Portico y letras corporeas”,monto:5310000,fecha:“2026-01-07”},
+{id:“y14”,tipo:“gasto”,concepto:“Honorarios arquitecto”,monto:1237500,fecha:“2026-01-12”},
+{id:“y15”,tipo:“gasto”,concepto:“Anticipo pileta”,monto:4500000,fecha:“2026-01-26”},
+{id:“y16”,tipo:“ingreso”,concepto:“Ventas febrero 2026”,monto:3297154,fecha:“2026-03-11”},
+{id:“y17”,tipo:“ingreso”,concepto:“Ventas marzo 2026”,monto:14747645,fecha:“2026-04-13”}
+]},
+{id:“sapucai”,name:“Sapucai”,desc:””,movimientos:[
+{id:“s1”,tipo:“gasto”,concepto:“Sena compra terreno”,monto:57150000,fecha:“2026-04-24”},
+{id:“s2”,tipo:“gasto”,concepto:“FEE Sonar”,monto:6500000,fecha:“2026-04-24”}
+]}
+];
 }
 
 function persist(cb){
-  fetch(SURL,{method:"POST",body:JSON.stringify({projects:projects})})
-    .then(function(){ toast("Guardado en Google Sheets"); if(cb) cb(); })
-    .catch(function(){ toast("Error al guardar"); if(cb) cb(); });
+fetch(SURL,{method:“POST”,body:JSON.stringify({projects:projects})})
+.then(function(){ toast(“Guardado en Google Sheets”); if(cb) cb(); })
+.catch(function(){ toast(“Error al guardar”); if(cb) cb(); });
 }
 
 function save(){ persist(null); render(); }
 
 function render(){
-  var html = view==="dash" ? dashV() : projV();
-  if(conf) html += confV();
-  document.getElementById("root").innerHTML = html;
+var html = view===“dash” ? dashV() : projV();
+if(conf) html += confV();
+document.getElementById(“root”).innerHTML = html;
 }
 
 function dashV(){
-  var ti=0,tg=0,mx=1;
-  projects.forEach(function(p){
-    var t=tots(p); ti+=t.ing; tg+=t.gas;
-    if(t.ing>mx) mx=t.ing; if(t.gas>mx) mx=t.gas;
-  });
-  var ts=ti-tg, tr=tg>0?(ti-tg)/tg*100:0;
+var ti=0,tg=0,mx=1;
+projects.forEach(function(p){
+var t=tots(p); ti+=t.ing; tg+=t.gas;
+if(t.ing>mx) mx=t.ing; if(t.gas>mx) mx=t.gas;
+});
+var ts=ti-tg, tr=tg>0?(ti-tg)/tg*100:0;
 
-  var comp="";
-  projects.forEach(function(p){
-    var t=tots(p);
-    comp+='<div style="margin-bottom:14px">';
-    comp+='<div style="font-size:13px;font-weight:700;margin-bottom:5px;color:#111">'+p.name+'</div>';
-    comp+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">';
-    comp+='<span style="font-size:11px;color:#444;font-weight:600;width:60px;flex-shrink:0">Ingresos</span>';
-    comp+='<div class="bar" style="flex:1;margin:0"><div class="bf" style="width:'+(t.ing/mx*100)+'%;background:#1D9E75"></div></div>';
-    comp+='<span style="font-size:11px;color:#1a7a58;font-weight:700;width:75px;text-align:right;flex-shrink:0">'+gs(t.ing)+'</span></div>';
-    comp+='<div style="display:flex;align-items:center;gap:6px">';
-    comp+='<span style="font-size:11px;color:#444;font-weight:600;width:60px;flex-shrink:0">Gastos</span>';
-    comp+='<div class="bar" style="flex:1;margin:0"><div class="bf" style="width:'+(t.gas/mx*100)+'%;background:#E24B4A"></div></div>';
-    comp+='<span style="font-size:11px;color:#b53030;font-weight:700;width:75px;text-align:right;flex-shrink:0">'+gs(t.gas)+'</span></div></div>';
-  });
+var comp=””;
+projects.forEach(function(p){
+var t=tots(p);
+comp+=’<div style="margin-bottom:14px">’;
+comp+=’<div style="font-size:13px;font-weight:700;margin-bottom:5px;color:#111">’+p.name+’</div>’;
+comp+=’<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">’;
+comp+=’<span style="font-size:11px;color:#444;font-weight:600;width:60px;flex-shrink:0">Ingresos</span>’;
+comp+=’<div class="bar" style="flex:1;margin:0"><div class="bf" style="width:'+(t.ing/mx*100)+'%;background:#1D9E75"></div></div>’;
+comp+=’<span style="font-size:11px;color:#1a7a58;font-weight:700;width:75px;text-align:right;flex-shrink:0">’+gs(t.ing)+’</span></div>’;
+comp+=’<div style="display:flex;align-items:center;gap:6px">’;
+comp+=’<span style="font-size:11px;color:#444;font-weight:600;width:60px;flex-shrink:0">Gastos</span>’;
+comp+=’<div class="bar" style="flex:1;margin:0"><div class="bf" style="width:'+(t.gas/mx*100)+'%;background:#E24B4A"></div></div>’;
+comp+=’<span style="font-size:11px;color:#b53030;font-weight:700;width:75px;text-align:right;flex-shrink:0">’+gs(t.gas)+’</span></div></div>’;
+});
 
-  var cards="";
-  projects.forEach(function(p){
-    var t=tots(p), pt=t.gas>0?Math.min(100,t.ing/t.gas*100):0;
-    var sc=t.sal>=0?"#1a7a58":"#b53030", rc=t.roi>=0?"#1a7a58":"#b53030";
-    cards+='<div class="card" style="cursor:pointer" onclick="openP(\''+p.id+'\')"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">';
-    cards+='<div class="av" style="width:36px;height:36px;font-size:12px">'+p.name.slice(0,2).toUpperCase()+'</div>';
-    cards+='<div style="flex:1;min-width:0"><div style="font-weight:700;font-size:15px;color:#111">'+p.name+'</div>';
-    cards+='<div style="font-size:11px;color:#555;font-weight:500">'+(p.movimientos||[]).length+' movimientos</div></div>';
-    cards+='<div style="text-align:right;flex-shrink:0"><div style="font-size:15px;font-weight:700;color:'+sc+'">'+gs(t.sal)+'</div>';
-    cards+='<div style="font-size:12px;font-weight:600;color:'+rc+'">ROI '+pp(t.roi)+'</div></div>';
-    cards+='<button class="db" onclick="event.stopPropagation();askDel(\''+p.id+'\')">x</button></div>';
-    cards+=bar(pt,pt>=100?"#1D9E75":"#534AB7");
-    cards+='<div style="display:flex;justify-content:space-between;font-size:11px;color:#555;font-weight:500">';
-    cards+='<span>Recuperado '+pt.toFixed(0)+'%</span><span>'+gs(t.ing)+' de '+gs(t.gas)+'</span></div></div>';
-  });
+var cards=””;
+projects.forEach(function(p){
+var t=tots(p), pt=t.gas>0?Math.min(100,t.ing/t.gas*100):0;
+var sc=t.sal>=0?”#1a7a58”:”#b53030”, rc=t.roi>=0?”#1a7a58”:”#b53030”;
+cards+=’<div class="card" style="cursor:pointer" onclick="openP(\''+p.id+'\')"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">’;
+cards+=’<div class="av" style="width:36px;height:36px;font-size:12px">’+p.name.slice(0,2).toUpperCase()+’</div>’;
+cards+=’<div style="flex:1;min-width:0"><div style="font-weight:700;font-size:15px;color:#111">’+p.name+’</div>’;
+cards+=’<div style="font-size:11px;color:#555;font-weight:500">’+(p.movimientos||[]).length+’ movimientos</div></div>’;
+cards+=’<div style="text-align:right;flex-shrink:0"><div style="font-size:15px;font-weight:700;color:'+sc+'">’+gs(t.sal)+’</div>’;
+cards+=’<div style="font-size:12px;font-weight:600;color:'+rc+'">ROI ‘+pp(t.roi)+’</div></div>’;
+cards+=’<button class="db" onclick="event.stopPropagation();askDel(\''+p.id+'\')">x</button></div>’;
+cards+=bar(pt,pt>=100?”#1D9E75”:”#534AB7”);
+cards+=’<div style="display:flex;justify-content:space-between;font-size:11px;color:#555;font-weight:500">’;
+cards+=’<span>Recuperado ‘+pt.toFixed(0)+’%</span><span>’+gs(t.ing)+’ de ‘+gs(t.gas)+’</span></div></div>’;
+});
 
-  var form="";
-  if(showAddP){
-    form='<div class="card">';
-    form+='<input placeholder="Nombre del proyecto" oninput="np.name=this.value" value="'+np.name+'">';
-    form+='<input placeholder="Descripcion (opcional)" oninput="np.desc=this.value" value="'+np.desc+'">';
-    form+='<div style="display:flex;gap:8px"><button onclick="doAddP()" style="flex:1">Crear</button>';
-    form+='<button onclick="showAddP=false;render()" style="flex:1">Cancelar</button></div></div>';
-  }
+var form=””;
+if(showAddP){
+form=’<div class="card">’;
+form+=’<input placeholder="Nombre del proyecto" oninput="np.name=this.value" value="'+np.name+'">’;
+form+=’<input placeholder="Descripcion (opcional)" oninput="np.desc=this.value" value="'+np.desc+'">’;
+form+=’<div style="display:flex;gap:8px"><button onclick="doAddP()" style="flex:1">Crear</button>’;
+form+=’<button onclick="showAddP=false;render()" style="flex:1">Cancelar</button></div></div>’;
+}
 
-  var h='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">';
-  h+='<div><div style="font-size:17px;font-weight:700;color:#111">Portfolio de inversiones</div>';
-  h+='<div style="font-size:12px;color:#555;font-weight:500">'+projects.length+' proyectos</div></div>';
-  h+='<button onclick="showAddP=true;render()">+ Nuevo</button></div>';
-  h+='<div class="g2">'+met("Total invertido",gs(tg),"red")+met("Total recuperado",gs(ti),"grn")+'</div>';
-  h+='<div class="g2">'+met("Saldo global",gs(ts),ts>=0?"grn":"red")+met("ROI global",pp(tr),tr>=0?"grn":"red")+'</div>';
-  h+='<div class="card"><div class="st">Comparativa por proyecto</div>'+comp+'</div>';
-  h+=form+cards;
-  return h;
+var h=’<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">’;
+h+=’<div><div style="font-size:17px;font-weight:700;color:#111">Portfolio de inversiones</div>’;
+h+=’<div style="font-size:12px;color:#555;font-weight:500">’+projects.length+’ proyectos</div></div>’;
+h+=’<button onclick="showAddP=true;render()">+ Nuevo</button></div>’;
+h+=’<div class="g2">’+met(“Total invertido”,gs(tg),“red”)+met(“Total recuperado”,gs(ti),“grn”)+’</div>’;
+h+=’<div class="g2">’+met(“Saldo global”,gs(ts),ts>=0?“grn”:“red”)+met(“ROI global”,pp(tr),tr>=0?“grn”:“red”)+’</div>’;
+h+=’<div class="card"><div class="st">Comparativa por proyecto</div>’+comp+’</div>’;
+h+=form+cards;
+return h;
 }
 
 function projV(){
-  var p=null;
-  projects.forEach(function(x){ if(x.id===pid) p=x; });
-  if(!p) return "";
-  var t=tots(p), pt=t.gas>0?Math.min(100,t.ing/t.gas*100):0;
-  var movs=(p.movimientos||[]).slice().sort(function(a,b){ return a.fecha<b.fecha?1:-1; });
-  var grp={};
-  (p.movimientos||[]).forEach(function(m){ if(m.tipo==="gasto") grp[m.concepto]=(grp[m.concepto]||0)+m.monto; });
-  var topG=Object.keys(grp).map(function(k){ return [k,grp[k]]; }).sort(function(a,b){ return b[1]-a[1]; }).slice(0,6);
-  var mg=topG.length?topG[0][1]:1;
+var p=null;
+projects.forEach(function(x){ if(x.id===pid) p=x; });
+if(!p) return “”;
+var t=tots(p), pt=t.gas>0?Math.min(100,t.ing/t.gas*100):0;
+var movs=(p.movimientos||[]).slice().sort(function(a,b){ return a.fecha<b.fecha?1:-1; });
+var grp={};
+(p.movimientos||[]).forEach(function(m){ if(m.tipo===“gasto”) grp[m.concepto]=(grp[m.concepto]||0)+m.monto; });
+var topG=Object.keys(grp).map(function(k){ return [k,grp[k]]; }).sort(function(a,b){ return b[1]-a[1]; }).slice(0,6);
+var mg=topG.length?topG[0][1]:1;
 
-  var hdr='<button style="background:none;border:none;color:#666;font-size:13px;padding:0;margin-bottom:14px;cursor:pointer;font-weight:600" onclick="goBack()">Atras</button>';
-  hdr+='<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">';
-  hdr+='<div class="av" style="width:40px;height:40px;font-size:13px">'+p.name.slice(0,2).toUpperCase()+'</div>';
-  hdr+='<div style="font-weight:700;font-size:16px;color:#111">'+p.name+'</div></div>';
-  hdr+='<div class="g2">'+met("Invertido",gs(t.gas),"red")+met("Recuperado",gs(t.ing),"grn")+'</div>';
-  hdr+='<div class="g2">'+met("Saldo neto",gs(t.sal),t.sal>=0?"grn":"red")+met("ROI",pp(t.roi),t.roi>=0?"grn":"red")+'</div>';
-  hdr+='<div class="tabs">';
-  hdr+='<button class="tab '+(curtab==="mov"?"on":"")+'" onclick="curtab=\'mov\';render()">Movimientos</button>';
-  hdr+='<button class="tab '+(curtab==="ana"?"on":"")+'" onclick="curtab=\'ana\';render()">Analisis</button>';
-  hdr+='</div>';
+var hdr=’<button style="background:none;border:none;color:#666;font-size:13px;padding:0;margin-bottom:14px;cursor:pointer;font-weight:600" onclick="goBack()">Atras</button>’;
+hdr+=’<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">’;
+hdr+=’<div class="av" style="width:40px;height:40px;font-size:13px">’+p.name.slice(0,2).toUpperCase()+’</div>’;
+hdr+=’<div style="font-weight:700;font-size:16px;color:#111">’+p.name+’</div></div>’;
+hdr+=’<div class="g2">’+met(“Invertido”,gs(t.gas),“red”)+met(“Recuperado”,gs(t.ing),“grn”)+’</div>’;
+hdr+=’<div class="g2">’+met(“Saldo neto”,gs(t.sal),t.sal>=0?“grn”:“red”)+met(“ROI”,pp(t.roi),t.roi>=0?“grn”:“red”)+’</div>’;
+hdr+=’<div class="tabs">’;
+hdr+=’<button class=“tab ‘+(curtab===“mov”?“on”:””)+’” onclick=“curtab='mov';render()”>Movimientos</button>’;
+hdr+=’<button class=“tab ‘+(curtab===“ana”?“on”:””)+’” onclick=“curtab='ana';render()”>Analisis</button>’;
+hdr+=’</div>’;
 
-  if(curtab==="mov"){
-    var form="";
-    if(showAddM){
-      form='<div class="card"><div style="display:flex;gap:8px">';
-      form+='<select style="flex:1;width:auto" onchange="nm.tipo=this.value">';
-      form+='<option value="gasto"'+(nm.tipo==="gasto"?" selected":"")+'>Gasto</option>';
-      form+='<option value="ingreso"'+(nm.tipo==="ingreso"?" selected":"")+'>Ingreso</option>';
-      form+='</select><input type="date" value="'+nm.fecha+'" oninput="nm.fecha=this.value" style="flex:1;width:auto"></div>';
-      form+='<input placeholder="Concepto" value="'+nm.concepto+'" oninput="nm.concepto=this.value">';
-      form+='<input type="number" placeholder="Monto (Gs.)" value="'+nm.monto+'" oninput="nm.monto=this.value">';
-      form+='<div style="display:flex;gap:8px"><button onclick="doAddM()" style="flex:1">Guardar</button>';
-      form+='<button onclick="showAddM=false;render()" style="flex:1">Cancelar</button></div></div>';
-    }
-    var rows="";
-    if(movs.length===0){
-      rows='<p style="color:#666;font-size:13px;font-weight:500">Sin movimientos aun.</p>';
-    } else {
-      rows='<div class="card" style="padding:0;overflow:hidden">';
-      movs.forEach(function(m){
-        var mc=m.tipo==="ingreso"?"#1a7a58":"#b53030";
-        var dc=m.tipo==="ingreso"?"#1D9E75":"#E24B4A";
-        var sg=m.tipo==="ingreso"?"+":"-";
-        rows+='<div class="mr"><div class="dot" style="background:'+dc+'"></div>';
-        rows+='<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#111">'+m.concepto+'</div>';
-        rows+='<div style="font-size:11px;color:#666;font-weight:500">'+m.fecha+'</div></div>';
-        rows+='<div style="font-size:13px;font-weight:700;color:'+mc+';white-space:nowrap;flex-shrink:0">'+sg+gs(m.monto)+'</div>';
-        rows+='<button class="db" onclick="doDelM(\''+m.id+'\')">x</button></div>';
-      });
-      rows+='</div>';
-    }
-    return hdr+'<div style="display:flex;justify-content:flex-end;margin-bottom:10px"><button onclick="showAddM=true;render()">+ Agregar</button></div>'+form+rows;
-  }
+if(curtab===“mov”){
+var form=””;
+if(showAddM){
+form=’<div class="card"><div style="display:flex;gap:8px">’;
+form+=’<select style="flex:1;width:auto" onchange="nm.tipo=this.value">’;
+form+=’<option value=“gasto”’+(nm.tipo===“gasto”?” selected”:””)+’>Gasto</option>’;
+form+=’<option value=“ingreso”’+(nm.tipo===“ingreso”?” selected”:””)+’>Ingreso</option>’;
+form+=’</select><input type="date" value="'+nm.fecha+'" oninput="nm.fecha=this.value" style="flex:1;width:auto"></div>’;
+form+=’<input placeholder="Concepto" value="'+nm.concepto+'" oninput="nm.concepto=this.value">’;
+form+=’<input type="number" placeholder="Monto (Gs.)" value="'+nm.monto+'" oninput="nm.monto=this.value">’;
+form+=’<div style="display:flex;gap:8px"><button onclick="doAddM()" style="flex:1">Guardar</button>’;
+form+=’<button onclick="showAddM=false;render()" style="flex:1">Cancelar</button></div></div>’;
+}
+var rows=””;
+if(movs.length===0){
+rows=’<p style="color:#666;font-size:13px;font-weight:500">Sin movimientos aun.</p>’;
+} else {
+rows=’<div class="card" style="padding:0;overflow:hidden">’;
+movs.forEach(function(m){
+var mc=m.tipo===“ingreso”?”#1a7a58”:”#b53030”;
+var dc=m.tipo===“ingreso”?”#1D9E75”:”#E24B4A”;
+var sg=m.tipo===“ingreso”?”+”:”-”;
+rows+=’<div class="mr"><div class="dot" style="background:'+dc+'"></div>’;
+rows+=’<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#111">’+m.concepto+’</div>’;
+rows+=’<div style="font-size:11px;color:#666;font-weight:500">’+m.fecha+’</div></div>’;
+rows+=’<div style="font-size:13px;font-weight:700;color:'+mc+';white-space:nowrap;flex-shrink:0">’+sg+gs(m.monto)+’</div>’;
+rows+=’<button class="db" onclick="doDelM(\''+m.id+'\')">x</button></div>’;
+});
+rows+=’</div>’;
+}
+return hdr+’<div style="display:flex;justify-content:flex-end;margin-bottom:10px"><button onclick="showAddM=true;render()">+ Agregar</button></div>’+form+rows;
+}
 
-  var ana='<div class="card"><div class="st">Progreso de recuperacion</div>';
-  ana+=bar(pt,pt>=100?"#1D9E75":"#534AB7");
-  ana+='<div style="display:flex;justify-content:space-between;font-size:11px;color:#555;font-weight:600;margin-top:4px">';
-  ana+='<span>'+pt.toFixed(1)+'% recuperado</span><span>'+gs(t.ing)+' de '+gs(t.gas)+'</span></div></div>';
+var ana=’<div class="card"><div class="st">Progreso de recuperacion</div>’;
+ana+=bar(pt,pt>=100?”#1D9E75”:”#534AB7”);
+ana+=’<div style="display:flex;justify-content:space-between;font-size:11px;color:#555;font-weight:600;margin-top:4px">’;
+ana+=’<span>’+pt.toFixed(1)+’% recuperado</span><span>’+gs(t.ing)+’ de ‘+gs(t.gas)+’</span></div></div>’;
 
-  if(topG.length){
-    ana+='<div class="card"><div class="st">Composicion de gastos</div>';
-    topG.forEach(function(e,i){
-      var pv=t.gas>0?(e[1]/t.gas*100).toFixed(1):0;
-      ana+='<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px">';
-      ana+='<span style="color:#444;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%">'+e[0]+'</span>';
-      ana+='<span style="font-weight:700;color:#111">'+pv+'%</span></div>';
-      ana+=bar(e[1]/mg*100,CLR[i])+'</div>';
-    });
-    ana+='</div>';
-  }
+if(topG.length){
+ana+=’<div class="card"><div class="st">Composicion de gastos</div>’;
+topG.forEach(function(e,i){
+var pv=t.gas>0?(e[1]/t.gas*100).toFixed(1):0;
+ana+=’<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px">’;
+ana+=’<span style="color:#444;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%">’+e[0]+’</span>’;
+ana+=’<span style="font-weight:700;color:#111">’+pv+’%</span></div>’;
+ana+=bar(e[1]/mg*100,CLR[i])+’</div>’;
+});
+ana+=’</div>’;
+}
 
-  ana+='<div class="card"><div class="st">Indicadores financieros</div><table>';
-  ana+='<tr><td>Total invertido</td><td>'+gs(t.gas)+'</td></tr>';
-  ana+='<tr><td>Total recuperado</td><td>'+gs(t.ing)+'</td></tr>';
-  ana+='<tr><td>Saldo neto</td><td style="color:'+(t.sal>=0?"#1a7a58":"#b53030")+'">'+gs(t.sal)+'</td></tr>';
-  ana+='<tr><td>ROI</td><td style="color:'+(t.roi>=0?"#1a7a58":"#b53030")+'">'+pp(t.roi)+'</td></tr>';
-  ana+='<tr><td>Cobertura</td><td>'+(t.gas>0?(t.ing/t.gas*100).toFixed(1):0)+'%</td></tr>';
-  ana+='<tr><td>Movimientos</td><td>'+(p.movimientos||[]).length+'</td></tr>';
-  ana+='</table></div>';
-  return hdr+ana;
+ana+=’<div class="card"><div class="st">Indicadores financieros</div><table>’;
+ana+=’<tr><td>Total invertido</td><td>’+gs(t.gas)+’</td></tr>’;
+ana+=’<tr><td>Total recuperado</td><td>’+gs(t.ing)+’</td></tr>’;
+ana+=’<tr><td>Saldo neto</td><td style=“color:’+(t.sal>=0?”#1a7a58”:”#b53030”)+’”>’+gs(t.sal)+’</td></tr>’;
+ana+=’<tr><td>ROI</td><td style=“color:’+(t.roi>=0?”#1a7a58”:”#b53030”)+’”>’+pp(t.roi)+’</td></tr>’;
+ana+=’<tr><td>Cobertura</td><td>’+(t.gas>0?(t.ing/t.gas*100).toFixed(1):0)+’%</td></tr>’;
+ana+=’<tr><td>Movimientos</td><td>’+(p.movimientos||[]).length+’</td></tr>’;
+ana+=’</table></div>’;
+return hdr+ana;
 }
 
 function confV(){
-  return '<div class="ov"><div class="card" style="max-width:290px;width:100%">'
-    +'<p style="font-size:13px;margin-bottom:14px;color:#111;font-weight:500">Eliminar este proyecto? No se puede deshacer.</p>'
-    +'<div style="display:flex;gap:8px">'
-    +'<button onclick="doDelete()" style="flex:1;color:#b53030;font-weight:700">Eliminar</button>'
-    +'<button onclick="conf=null;render()" style="flex:1">Cancelar</button>'
-    +'</div></div></div>';
+return ‘<div class="ov"><div class="card" style="max-width:290px;width:100%">’
++’<p style="font-size:13px;margin-bottom:14px;color:#111;font-weight:500">Eliminar este proyecto? No se puede deshacer.</p>’
++’<div style="display:flex;gap:8px">’
++’<button onclick="doDelete()" style="flex:1;color:#b53030;font-weight:700">Eliminar</button>’
++’<button onclick="conf=null;render()" style="flex:1">Cancelar</button>’
++’</div></div></div>’;
 }
 
-function openP(id){ pid=id; view="proj"; curtab="mov"; showAddM=false; render(); }
-function goBack(){ view="dash"; pid=null; showAddP=false; render(); }
+function openP(id){ pid=id; view=“proj”; curtab=“mov”; showAddM=false; render(); }
+function goBack(){ view=“dash”; pid=null; showAddP=false; render(); }
 function askDel(id){ conf=id; render(); }
 
 function doAddP(){
-  var n=np.name.trim(); if(!n) return;
-  projects.push({id:uid(),name:n,desc:np.desc,movimientos:[]});
-  np={name:"",desc:""}; showAddP=false; save();
+var n=np.name.trim(); if(!n) return;
+projects.push({id:uid(),name:n,desc:np.desc,movimientos:[]});
+np={name:””,desc:””}; showAddP=false; save();
 }
 function doDelete(){
-  projects=projects.filter(function(p){ return p.id!==conf; });
-  if(pid===conf){ view="dash"; pid=null; }
-  conf=null; save();
+projects=projects.filter(function(p){ return p.id!==conf; });
+if(pid===conf){ view=“dash”; pid=null; }
+conf=null; save();
 }
 function doAddM(){
-  var mo=parseFloat(nm.monto);
-  if(!nm.concepto.trim()||isNaN(mo)||mo<=0) return;
-  projects.forEach(function(p){
-    if(p.id===pid) p.movimientos.push({id:uid(),tipo:nm.tipo,concepto:nm.concepto,monto:mo,fecha:nm.fecha});
-  });
-  nm={tipo:"gasto",concepto:"",monto:"",fecha:new Date().toISOString().slice(0,10)};
-  showAddM=false; save();
+var mo=parseFloat(nm.monto);
+if(!nm.concepto.trim()||isNaN(mo)||mo<=0) return;
+projects.forEach(function(p){
+if(p.id===pid) p.movimientos.push({id:uid(),tipo:nm.tipo,concepto:nm.concepto,monto:mo,fecha:nm.fecha});
+});
+nm={tipo:“gasto”,concepto:””,monto:””,fecha:new Date().toISOString().slice(0,10)};
+showAddM=false; save();
 }
 function doDelM(id){
-  projects.forEach(function(p){
-    if(p.id===pid) p.movimientos=p.movimientos.filter(function(m){ return m.id!==id; });
-  });
-  save();
+projects.forEach(function(p){
+if(p.id===pid) p.movimientos=p.movimientos.filter(function(m){ return m.id!==id; });
+});
+save();
 }
 
 loadData();
 </script>
+
 </body>
 </html>

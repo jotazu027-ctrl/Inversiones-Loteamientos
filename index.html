@@ -47,6 +47,8 @@ tr:last-child td{border-bottom:none}
 <script>
 var SURL="https://script.google.com/macros/s/AKfycbwszlJl1c2wnvUkuGF-m0k9BUWeUA7-v1fNI_2mJ7vCORt9e7wFeudwwLB1e7pUUuXf/exec";
 var CLR=["#534AB7","#E24B4A","#1D9E75","#BA7517","#185FA5","#888780"];
+var LS_KEY="inversiones_projects";
+var LS_TS="inversiones_ts";
 
 function makeFMY(){
 var d=[];
@@ -115,12 +117,24 @@ function tots(p){var ing=0,gas=0;(p.movimientos||[]).forEach(function(m){if(m.ti
 function bar(pct,color){return '<div class="bar"><div class="bf" style="width:'+Math.min(100,pct)+'%;background:'+color+'"></div></div>';}
 function met(l,v,c){return '<div class="metric"><div class="mlbl">'+l+'</div><div class="mval '+(c||"wht")+'">'+v+'</div></div>';}
 
+// ── localStorage helpers ──────────────────────────────────────
+function lsSave(data){
+  try{localStorage.setItem(LS_KEY,JSON.stringify(data));localStorage.setItem(LS_TS,Date.now());}catch(e){}
+}
+function lsLoad(){
+  try{var d=localStorage.getItem(LS_KEY);return d?JSON.parse(d):null;}catch(e){return null;}
+}
+function lsTs(){
+  try{return parseInt(localStorage.getItem(LS_TS)||"0");}catch(e){return 0;}
+}
+// ─────────────────────────────────────────────────────────────
+
 function logoSVG(){
 return '<svg width="44" height="44" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="400" fill="#fff"/><polygon points="200,55 55,190 345,190" fill="#fff" stroke="#1a6644" stroke-width="16" stroke-linejoin="round"/><rect x="110" y="152" width="28" height="30" rx="3" fill="#1a6644" opacity="0.35"/><rect x="145" y="132" width="28" height="50" rx="3" fill="#1a6644" opacity="0.6"/><rect x="180" y="108" width="28" height="74" rx="3" fill="#1a6644"/><rect x="218" y="132" width="28" height="50" rx="3" fill="#1a6644" opacity="0.6"/><rect x="253" y="152" width="28" height="30" rx="3" fill="#1a6644" opacity="0.35"/><line x1="200" y1="55" x2="200" y2="22" stroke="#1a6644" stroke-width="14" stroke-linecap="round"/><polyline points="184,38 200,20 216,38" fill="none" stroke="#1a6644" stroke-width="14" stroke-linejoin="round" stroke-linecap="round"/><rect x="72" y="190" width="256" height="160" rx="4" fill="none" stroke="#1a6644" stroke-width="16"/><text x="200" y="232" text-anchor="middle" font-family="system-ui" font-size="36" font-weight="700" fill="#1a6644" letter-spacing="2">INVERSIONES</text><text x="200" y="258" text-anchor="middle" font-family="system-ui" font-size="22" fill="#1a6644" opacity="0.6" letter-spacing="3">LOTEAMIENTOS</text><rect x="158" y="268" width="84" height="82" rx="3" fill="#1a6644" opacity="0.12"/></svg>';
 }
 
 function seedData(){
-projects=[
+return [
 {id:"ybycui",name:"Ybycui",desc:"",movimientos:[
 {id:"y1",tipo:"gasto",concepto:"Sena compra terreno",monto:100000000,fecha:"2025-04-23"},
 {id:"y2",tipo:"gasto",concepto:"Adelanto comision vendedor",monto:500000,fecha:"2025-04-23"},
@@ -148,17 +162,57 @@ projects=[
 }
 
 function loadData(){
-seedData();render();
-var xhr=new XMLHttpRequest();xhr.open("GET",SURL,true);xhr.timeout=5000;
-xhr.onload=function(){try{var d=JSON.parse(xhr.responseText);if(d.projects&&d.projects.length){projects=d.projects;render();showToast("Sincronizado");}}catch(e){}};
-xhr.send();
+  // 1. Arrancar con seed como base
+  projects = seedData();
+
+  // 2. Si hay datos en localStorage, usarlos de inmediato (más frescos que seed)
+  var local = lsLoad();
+  if(local && local.length){
+    projects = local;
+    render();
+  } else {
+    render();
+  }
+
+  // 3. Intentar sincronizar con el servidor
+  var xhr=new XMLHttpRequest();xhr.open("GET",SURL,true);xhr.timeout=8000;
+  xhr.onload=function(){
+    try{
+      var d=JSON.parse(xhr.responseText);
+      if(d.projects && d.projects.length){
+        // Solo usar datos del servidor si son más nuevos que el localStorage
+        // Comparamos cantidad de movimientos totales como heurística
+        var serverMov=0; d.projects.forEach(function(p){serverMov+=(p.movimientos||[]).length;});
+        var localMov=0; projects.forEach(function(p){localMov+=(p.movimientos||[]).length;});
+        if(serverMov >= localMov){
+          projects=d.projects;
+          lsSave(projects);
+          render();
+          showToast("Sincronizado con servidor");
+        } else {
+          // localStorage tiene más datos — el servidor está desactualizado, re-sincronizar
+          showToast("Datos locales más recientes — sincronizando...");
+          persist();
+        }
+      }
+    }catch(e){}
+  };
+  xhr.onerror=function(){showToast("Sin conexión — usando datos locales");};
+  xhr.ontimeout=function(){showToast("Servidor lento — usando datos locales");};
+  xhr.send();
 }
 
 function persist(){
-var xhr=new XMLHttpRequest();xhr.open("POST",SURL,true);
-xhr.onload=function(){showToast("Guardado");};
-xhr.send(JSON.stringify({projects:projects}));
+  // Guardar siempre en localStorage primero (instantáneo)
+  lsSave(projects);
+  // Luego intentar sincronizar con servidor
+  var xhr=new XMLHttpRequest();xhr.open("POST",SURL,true);xhr.timeout=10000;
+  xhr.onload=function(){showToast("Guardado en servidor ✓");};
+  xhr.onerror=function(){showToast("Guardado local ✓ (sin conexión)");};
+  xhr.ontimeout=function(){showToast("Guardado local ✓ (servidor lento)");};
+  xhr.send(JSON.stringify({projects:projects}));
 }
+
 function save(){persist();render();}
 
 function render(){

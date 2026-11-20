@@ -38,12 +38,79 @@ tr:last-child td{border-bottom:none}
 .db{font-size:10px;padding:2px 7px;color:#aaa;border:1px solid #ddd;border-radius:6px;background:none;cursor:pointer;flex-shrink:0}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.show{opacity:1}
+
+/* LOGIN */
+#loginScreen{position:fixed;inset:0;background:linear-gradient(160deg,#0d3d26 0%,#1a6644 60%,#0d2e1c 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;padding:32px}
+#loginScreen .logo{margin-bottom:28px}
+#loginScreen h1{color:#fff;font-size:20px;font-weight:700;margin-bottom:4px;text-align:center}
+#loginScreen p{color:rgba(255,255,255,.55);font-size:13px;margin-bottom:28px;text-align:center}
+#loginScreen input{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:14px 16px;font-size:16px;text-align:center;letter-spacing:4px;width:100%;max-width:280px;margin-bottom:12px}
+#loginScreen input::placeholder{color:rgba(255,255,255,.35);letter-spacing:0}
+#loginScreen input:focus{outline:none;border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.18)}
+#loginBtn{background:#2ecc9a;border:none;color:#fff;font-size:15px;font-weight:700;border-radius:10px;padding:14px 32px;cursor:pointer;width:100%;max-width:280px;margin-bottom:16px;letter-spacing:.03em}
+#loginBtn:active{background:#27b589}
+#loginErr{color:#ff8080;font-size:13px;text-align:center;min-height:18px;margin-bottom:4px}
+.lock-icon{font-size:36px;margin-bottom:10px;opacity:.7}
 </style>
 </head>
 <body>
-<div id="root"><div style="text-align:center;padding:40px;color:#888">Cargando...</div></div>
+
+<!-- PANTALLA DE LOGIN -->
+<div id="loginScreen">
+  <div class="logo">
+    <svg width="80" height="80" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="200,55 55,190 345,190" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="18" stroke-linejoin="round"/>
+      <line x1="200" y1="55" x2="200" y2="22" stroke="rgba(255,255,255,0.9)" stroke-width="16" stroke-linecap="round"/>
+      <polyline points="184,38 200,20 216,38" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"/>
+      <rect x="72" y="190" width="256" height="160" rx="4" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="18"/>
+      <rect x="110" y="152" width="22" height="28" rx="3" fill="rgba(255,255,255,0.3)"/>
+      <rect x="142" y="130" width="22" height="50" rx="3" fill="rgba(255,255,255,0.55)"/>
+      <rect x="178" y="105" width="22" height="75" rx="3" fill="rgba(255,255,255,0.9)"/>
+      <rect x="216" y="130" width="22" height="50" rx="3" fill="rgba(255,255,255,0.55)"/>
+      <rect x="250" y="152" width="22" height="28" rx="3" fill="rgba(255,255,255,0.3)"/>
+    </svg>
+  </div>
+  <h1>Inversiones Loteamientos</h1>
+  <p>Ingresá tu contraseña para continuar</p>
+  <input type="password" id="pwdInput" placeholder="Contraseña" maxlength="20" onkeydown="if(event.key==='Enter')doLogin()">
+  <div id="loginErr"></div>
+  <button id="loginBtn" onclick="doLogin()">Ingresar</button>
+</div>
+
+<div id="root" style="display:none"><div style="text-align:center;padding:40px;color:#888">Cargando...</div></div>
 <div class="toast" id="toast"></div>
+
 <script>
+var PASS="iljo2025";
+var SESSION_KEY="il_auth";
+
+function doLogin(){
+  var v=document.getElementById("pwdInput").value;
+  if(v===PASS){
+    try{sessionStorage.setItem(SESSION_KEY,"1");}catch(e){}
+    document.getElementById("loginScreen").style.display="none";
+    document.getElementById("root").style.display="block";
+    loadData();
+  } else {
+    var err=document.getElementById("loginErr");
+    err.textContent="Contraseña incorrecta";
+    document.getElementById("pwdInput").value="";
+    document.getElementById("pwdInput").focus();
+    setTimeout(function(){err.textContent="";},2500);
+  }
+}
+
+// Auto-login si ya autenticó en esta sesión
+(function(){
+  try{if(sessionStorage.getItem(SESSION_KEY)==="1"){
+    document.getElementById("loginScreen").style.display="none";
+    document.getElementById("root").style.display="block";
+  }}catch(e){}
+})();
+
+// Foco automático en el campo
+setTimeout(function(){document.getElementById("pwdInput").focus();},100);
+
 var SURL="https://script.google.com/macros/s/AKfycbwszlJl1c2wnvUkuGF-m0k9BUWeUA7-v1fNI_2mJ7vCORt9e7wFeudwwLB1e7pUUuXf/exec";
 var CLR=["#534AB7","#E24B4A","#1D9E75","#BA7517","#185FA5","#888780"];
 
@@ -290,8 +357,6 @@ function doAddP(){var n=np.name.trim();if(!n)return;projects.push({id:uid(),name
 function doDelete(){projects=projects.filter(function(p){return p.id!==conf;});if(pid===conf){view="dash";pid=null;}conf=null;save();}
 function doAddM(){var mo=parseFloat(nm.monto);if(!nm.concepto.trim()||isNaN(mo)||mo<=0)return;projects.forEach(function(p){if(p.id===pid)p.movimientos.push({id:uid(),tipo:nm.tipo,concepto:nm.concepto,monto:mo,fecha:nm.fecha});});nm={tipo:"gasto",concepto:"",monto:"",fecha:new Date().toISOString().slice(0,10)};showAddM=false;save();}
 function doDelM(id){projects.forEach(function(p){if(p.id===pid)p.movimientos=p.movimientos.filter(function(m){return m.id!==id;});});save();}
-
-loadData();
 </script>
 </body>
 </html>
